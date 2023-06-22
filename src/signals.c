@@ -32,17 +32,19 @@ void	signal_interrupt(int signum)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-	}	
+	}
 }
 
 //	CTRL-D represents "No input".
 //	When pressed, str is NULL and it exits the shell.
-void	signal_exit(char *str)
+void	signal_exit(t_var *var, char *str)
 {
 	if (!str)
 	{
 		printf("exit\n");
 		free(str);
+		arr_free(var->main_arr);
+		free(var);
 		exit (0);
 	}
 }

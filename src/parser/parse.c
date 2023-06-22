@@ -1,35 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/20 18:57:28 by ddiniz-m         ###   ########.fr       */
+/*   Created: 2023/06/06 15:19:33 by ddiniz-m          #+#    #+#             */
+/*   Updated: 2023/06/22 14:09:09 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
-//	'readline' records whatever is inputed in terminal, and returns a memory
-//	allocated char *buffer
-int	main(void)
+// In the future this function will look through the separated string and
+// interpret it before deciding what to do with it (i.e. what commands to
+// execute, what to redirect, what to pipe, etc.)
+void	parse_main(t_var *var)
 {
-	char	*str;
-	t_var	*var;
-
-	var = var_struct_init();
-	signal_init();
-	while (1)
-	{
-		str = readline("Minishell >$ ");
-		var_init(var, str);
-		parse_main(var);
-		add_history(str);
-		signal_exit(var, str);
-		free(str);
-		arr_free(var->main_arr);
-	}
-	free(var);
+	arr_print("MAIN ARRAY", var->main_arr);
 }

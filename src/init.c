@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 16:58:56 by mortins-          #+#    #+#             */
-/*   Updated: 2022/11/22 15:20:25 by mortins-         ###   ########.fr       */
+/*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
+/*   Updated: 2023/06/20 18:56:01 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "../inc/minishell.h"
 
-//	Counts the number of nodes in a list
-
-int	ft_lstsize(t_list *lst)
+t_var	*var_struct_init(void)
 {
-	int	count;
+	t_var	*var;
 
-	count = 0;
-	while (lst)
-	{
-		lst = lst -> next;
-		count++;
-	}
-	return (count);
+	var = malloc(sizeof(t_var));
+	return (var);
+}
+
+void	var_init(t_var *var, char *str)
+{
+	var->words = 0;
+	str_words(var, str);
+	var->main_arr = split_main(var, str);
 }
