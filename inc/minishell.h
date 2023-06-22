@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/20 19:20:45 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:58:45 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	signal_init(void);
 void	signal_interrupt(int signum);
 void	signal_exit(char *str);
 
-// built-ins/pwd.c
+// ++++++++++ built-ins/[.....] ++++++++++
+// pwd.c
 void	pwd(void);
 
 #endif
