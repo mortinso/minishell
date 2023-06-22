@@ -6,9 +6,10 @@ CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=thread
 RM = rm -rf
 
 SRC_MSH = main.c signals.c
+SRC_BLT = pwd.c
 
-SRCS = $(addprefix src/, $(SRC_MSH))
-OBJS = $(patsubst src/%, $(OBJS_DIR)/%, $(SRCS:%.c=%.o))
+SRCS = $(addprefix src/, $(SRC_MSH))  $(addprefix src/built-ins/, $(SRC_BLT))
+OBJS = $(addprefix $(OBJS_DIR)/, $(SRC_MSH:%.c=%.o)) $(addprefix $(OBJS_DIR)/,  $(SRC_BLT:%.c=%.o))
 
 GREEN	=	"\033[0;32m"
 NC		=	"\033[0m"
