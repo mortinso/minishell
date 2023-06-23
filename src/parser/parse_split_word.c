@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_split_word.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:45:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/22 19:03:16 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:16:36 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	split_word_envar(char *str)
 		i++;
 	return (i);
 }
-
 
 // size of str until next specific character
 int	split_word(char *str)

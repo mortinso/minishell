@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils_arr.c                                  :+:      :+:    :+:   */
+/*   parse_array.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:01:18 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/20 18:27:34 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:53:47 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,4 @@ void	arr_print(char *str, char **arr)
 	printf("\n%s:\n", str);
 	while (i < arr_size(arr))
 		printf("%s\n", arr[i++]);
-}
-
-void	arr_free(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i] && i < arr_size(arr))
-		free(arr[i++]);
-	free(arr);
 }
