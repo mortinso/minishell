@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/22 19:32:05 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:14:09 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,28 @@ typedef struct s_variable
 {
 	int			words;
 	char		**main_arr;
+	char		*prompt;
+	char		*str;
 }				t_var;
 
 //------------------------------------SRCS--------------------------------------
 
 // init.c
 t_var	*var_struct_init(void);
-void	var_init(t_var *var, char *str);
+void	var_init(t_var *var);
 
 // signals.c
 void	signal_init(void);
 void	signal_interrupt(int signum);
-void	signal_exit(t_var *var, char *str);
+void	signal_exit(t_var *var);
+
+// prompt.c
+char	*set_prompt(t_var *var);
+
+// frees.c
+void	free_var(t_var *var);
+void	free_array(char **arr);
+void	malloc_error(t_var *var);
 
 // ++++++++++ parser/[.........] ++++++++++
 // parse.c
@@ -55,7 +65,6 @@ void	parse_main(t_var *var);
 int		arr_size(char **arr);
 char	**arr_cpy(char **arr, int pos, int size);
 void	arr_print(char *str, char **arr);
-void	arr_free(char **arr);
 
 // parse_split.c
 char	*split_temp(char *str, int word_len);

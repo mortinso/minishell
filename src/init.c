@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/20 18:56:01 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:00:30 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ t_var	*var_struct_init(void)
 	return (var);
 }
 
-void	var_init(t_var *var, char *str)
+void	var_init(t_var *var)
 {
 	var->words = 0;
-	str_words(var, str);
-	var->main_arr = split_main(var, str);
+	str_words(var, var->str);
+	var->main_arr = split_main(var, var->str);
 }
