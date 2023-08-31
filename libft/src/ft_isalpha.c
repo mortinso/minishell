@@ -6,11 +6,11 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 12:40:41 by mortins-          #+#    #+#             */
-/*   Updated: 2023/05/19 16:28:46 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:45:35 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
 //	Checks if it was given an alphabetic character
 

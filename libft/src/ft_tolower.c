@@ -6,11 +6,11 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:18:28 by mortins-          #+#    #+#             */
-/*   Updated: 2023/05/19 16:29:58 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:47:42 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
 //	Converts the letter 'c' to lower case, if possible
 

@@ -6,11 +6,11 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 15:59:04 by mortins-          #+#    #+#             */
-/*   Updated: 2023/05/19 16:29:54 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:47:34 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
 //	Returns a pointer to the last occurrence of the character 'c'
 //	in the string 's'

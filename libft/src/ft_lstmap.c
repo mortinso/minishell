@@ -6,11 +6,11 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:12:10 by mortins-          #+#    #+#             */
-/*   Updated: 2023/05/19 16:29:18 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:46:34 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
 //	Applies the function ’f’ on the content of each node
 //	Creates a new list resulting of the applications of the function ’f’.

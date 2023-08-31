@@ -6,11 +6,11 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:49:07 by mortins-          #+#    #+#             */
-/*   Updated: 2023/05/19 16:29:50 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:47:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
 //	Applies the function 'f' to each character of the string 's' to create a new
 //	string resulting from successive applications of 'f'

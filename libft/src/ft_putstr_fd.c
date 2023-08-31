@@ -6,11 +6,11 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:49:15 by mortins-          #+#    #+#             */
-/*   Updated: 2023/05/19 16:29:34 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:47:02 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
 //	Outputs the string 's' to the given file descriptor
 

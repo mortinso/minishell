@@ -6,11 +6,11 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 12:03:55 by mortins-          #+#    #+#             */
-/*   Updated: 2023/05/19 16:29:24 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:46:42 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
 //	Compares the first 'n' bytes of the memory areas 's1' and 's2'
 
