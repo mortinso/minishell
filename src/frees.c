@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:53:12 by mortins-          #+#    #+#             */
-/*   Updated: 2023/06/23 17:15:25 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/06 15:39:04 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ void	malloc_error(t_var *var)
 {
 	write(2, "Error: Malloc failed\n", 22);
 	free_var(var);
+	// Must change EXIT_STATUS?
 }
