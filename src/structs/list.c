@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/06 15:33:15 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:14:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
-t_var	*var_struct_init(void)
+void	list_print(t_list **list)
 {
-	t_var	*var;
+	t_list	*tmp;
 
-	var = malloc(sizeof(t_var));
-	return (var);
-}
-
-void	var_init(t_var *var)
-{
-	var->words = 0;
-	str_counter(var, var->str);
-	var->main_arr = split_main(var, var->str);
+	tmp = *list;
+	while (tmp)
+	{
+		printf("		%s\n", (char *)tmp->data);
+		tmp = tmp->next;
+	}
 }

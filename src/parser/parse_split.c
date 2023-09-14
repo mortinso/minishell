@@ -6,25 +6,24 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:02:32 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/06 16:19:28 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:15:23 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 // Splits str into an array of char *
-char	**split_main(t_var *var, char *str)
+char	**split_main(t_minishell *ms, char *str)
 {
 	int		i;
 	int		word_len;
 	char	**buff;
 
 	i = 0;
-	printf("Words = %d\n", var->words);
-	buff = malloc(sizeof(char *) * (var->words + 1));
+	buff = malloc(sizeof(char *) * (ms->words + 1));
 	if (!buff)
 		return (NULL);
-	while (i < var->words)
+	while (i < ms->words)
 	{
 		while (*str && meta_char(*str) == 1)
 			str++;

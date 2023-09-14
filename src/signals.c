@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 16:08:59 by mortins-          #+#    #+#             */
-/*   Updated: 2023/08/30 16:07:51 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:11:03 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	signal_interrupt(int signum)
 
 //	CTRL-D represents "No input".
 //	When pressed, str is NULL and it exits the shell.
-void	signal_exit(t_var *var)
+void	signal_exit(t_minishell *ms)
 {
-	if (!(var->str))
+	if (!(ms->str))
 	{
 		printf("exit\n");
-		free_var(var);
+		free_ms(ms);
 		exit (0);
 	}
 }

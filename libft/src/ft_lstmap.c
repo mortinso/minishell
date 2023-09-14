@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:12:10 by mortins-          #+#    #+#             */
-/*   Updated: 2023/08/31 13:46:34 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/12 15:31:17 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-//	Applies the function ’f’ on the content of each node
+//	Applies the function ’f’ on the data of each node
 //	Creates a new list resulting of the applications of the function ’f’.
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*d)(void *))
 {
 	t_list	*head;
 	t_list	*node;
-	void	*content;
+	char	*data;
 
 	if (!(lst && f && d))
 		return (NULL);
 	head = NULL;
 	while (lst)
 	{
-		content = f(lst -> content);
-		node = ft_lstnew(content);
+		data = f(lst->data);
+		node = ft_lstnew(data);
 		if (!node)
 		{
-			d(content);
+			d(data);
 			ft_lstclear(&head, d);
 			return (NULL);
 		}

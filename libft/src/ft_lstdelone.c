@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 16:09:40 by mortins-          #+#    #+#             */
-/*   Updated: 2023/08/31 13:46:27 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/08 13:48:26 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	del(lst -> content);
+	del(lst -> data);
 	free(lst);
 }

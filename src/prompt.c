@@ -6,33 +6,27 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:40:31 by mortins-          #+#    #+#             */
-/*   Updated: 2023/06/23 17:16:05 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:52:33 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*set_prompt(t_var *var)
+char	*set_prompt(t_minishell *ms)
 {
 	char	cwd[PATH_MAX];
 	char	*prompt;
-	char	*buf;
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
-		prompt = malloc(sizeof(char) * 25);
+		prompt = malloc(sizeof(char) * 12);
 		if (!prompt)
-			malloc_error(var);
-		prompt = "\033[1;33mMinishell $> \033[0m";
+			malloc_error(ms);
+		prompt = "Minishell$> ";
 		return (prompt);
 	}
-	buf = ft_strjoin("\033[1;33m", ft_strrchr(getcwd(cwd, sizeof(cwd)), '/') \
-		+ 1);
-	if (!buf)
-		malloc_error(var);
-	prompt = ft_strjoin(buf, " $> \033[0m");
+	prompt = ft_strjoin(ft_strrchr(getcwd(cwd, sizeof(cwd)), '/') + 1, "$> ");
 	if (!prompt)
-		malloc_error(var);
-	free(buf);
+		malloc_error(ms);
 	return (prompt);
 }
