@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/14 17:10:41 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:38:15 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void		list_print(t_list **list);
 // +++++++++++++ parser/[.........] +++++++++++++
 // parse.clist_print(tmp->content->input);
 
-// array_utils.c
+// parse_array.c
 int			arr_size(char **arr);
 char		**arr_cpy(char **arr, int pos, int size);
 void		arr_print(char *str, char **arr);
@@ -112,10 +112,21 @@ int			meta_char(char c);
 //parse.c
 void		parse_main(t_minishell *ms);
 
+//errors
+int			syntax_error(t_minishell *ms);
+
+//errors2
+int			token_message(char c);
+int			sucession_error(char *str);
+int			redir_error(char *str);
+int			begin_pipe_error(char *str);
+int			end_of_string_error(char *str);
+int			heredoc_error(char *str);
+int			begin_error(char *str);
+int			double_redir_error(char *str, char c);
+
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 // pwd.c
 void		pwd(void);
-
-// ++++++++++++++++ utils/[.....] +++++++++++++++
 
 #endif

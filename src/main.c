@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/14 17:18:39 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:59:36 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ int	main(void)
 	{
 		ms->prompt = set_prompt(ms);
 		ms->str = readline(ms->prompt);
+		add_history(ms->str);
+		if (ms->str && syntax_error(ms))
+			continue ;
 		var_init(ms);
 		parse_main(ms);
-		add_history(ms->str);
 		signal_exit(ms);
 		free(ms->str);
 		free(ms->prompt);
@@ -74,4 +76,7 @@ int	main(void)
 	- malloc_error();
 	- pwd();
 	- str_quotes()
+
+	<> works as <
+	>| works as >
  */

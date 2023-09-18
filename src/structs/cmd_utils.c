@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/14 16:51:01 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:01:23 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	cmd_args(char **arr, int pos)
 	i = pos;
 	while (arr[i] && i < arr_size(arr))
 	{
-		if (meta_char(arr[i][0]) == 2)
+		if (ft_strcmp(arr[i], "|") == 0 || ft_strcmp(arr[i], "<") == 0 || \
+			ft_strcmp(arr[i], ">") == 0)
 			break ;
 		i++;
 	}
@@ -67,9 +68,9 @@ int	cmd_count(char **arr)
 	while (arr[i])
 	{
 		cmd_n++;
-		while (arr[i] && arr[i][0] != '|')
+		while (arr[i] && ft_strcmp(arr[i], "|") != 0)
 			i++;
-		if (arr[i] && arr[i][0] == '|')
+		if (arr[i] && ft_strcmp(arr[i], "|") == 0)
 			i++;
 	}
 	return (cmd_n);

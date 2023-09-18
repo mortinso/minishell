@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:59:23 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/14 16:25:38 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:01:23 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ t_list	*redir_lst(char **arr, int index, char *limiter)
 	redir = NULL;
 	while (arr[index] && ft_strcmp(arr[index], "|") != 0)
 	{
+		if (ft_strcmp(arr[index], ">|") == 0 || ft_strcmp(arr[index], "<>") \
+			== 0)
+			arr[index][1] = 0;
 		if (ft_strcmp(arr[index], limiter) == 0)
 		{
 			node = ft_lstnew(arr[index + 1]);

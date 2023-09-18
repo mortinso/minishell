@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/06 16:22:44 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:32:45 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	str_others(char *str, int i)
 	else if (str[i] == '>')
 	{
 		i++;
-		if (str[i] && str[i] == '>')
+		if (str[i] && (str[i] == '>' || str[i] == '|'))
 			i++;
 	}
 	else if (str[i] == '<')
