@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/18 17:59:36 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:34:56 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(void)
 	}
 	free(ms->cmdlist);
 	free(ms);
+	// exit (EXIT_STATUS);
 }
 /*
 	while (arr[i])

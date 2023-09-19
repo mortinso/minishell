@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 16:08:59 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/14 17:11:03 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:34:45 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ void	signal_exit(t_minishell *ms)
 	{
 		printf("exit\n");
 		free_ms(ms);
-		exit (0);
+		exit (0); // exit (EXIT_STATUS);
 	}
 }
