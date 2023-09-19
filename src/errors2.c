@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:44:37 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/18 17:52:19 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/19 13:43:18 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ int	begin_error(char *str)
 		i++;
 	if (str[i] && str[i] == '|')
 		return (token_message(str[i]));
-	else if (str[i] && str[i] == '|')
-		return (write(2, \
-			"MiniShell: syntax error near unexpected token 'newline'", 55));
 	return (0);
 }
 
@@ -39,7 +36,8 @@ int	end_of_string_error(char *str)
 	while (size >= 0)
 	{
 		if (meta_char(str[size]) == 2)
-			return (token_message(str[size]));
+			return (write(2, \
+			"MiniShell: syntax error near unexpected token 'newline'\n", 56));
 		if (meta_char(str[size]) == 0)
 			break ;
 		size--;

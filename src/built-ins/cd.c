@@ -1,37 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/20 18:05:31 by mortins-          #+#    #+#             */
-/*   Updated: 2023/06/23 15:18:16 by mortins-         ###   ########.fr       */
+/*   Created: 2023/06/20 17:08:39 by mortins-          #+#    #+#             */
+/*   Updated: 2023/09/19 14:57:26 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-// Prints current working directory
-void	pwd(void)
+int	cd_home(void)
 {
-	char	cwd[PATH_MAX];
-	int		i;
-
-	i = 0;
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
+	if (!getenv("HOME"))
 	{
-		printf("%s\n", getcwd(cwd, sizeof(cwd)));
-		while (cwd[i])
-			cwd[i++] = 0;
+		write(2, "Minishell: cd: HOME is undefined\n", 29);
+			// NEED TO CHANGE EXIT_STATUS
+		return (-1);
 	}
-	else
+	else if (chdir(getenv("HOME")) != 0)
 	{
-		perror("Error");
+		perror("Minishell: cd: HOME");
 		// NEED TO CHANGE EXIT_STATUS
-		return ;
+		return (-1);
 	}
 	// NEED TO CHANGE EXIT_STATUS
+	return (0);
 }
-// PATH_MAX is defined in <limits.h> and represents the maximum length of a
-// file path on the current system (including the null terminator).
+
+// Returns 0 on success.
+// Returns -1 on error
+int	cd(char *path)
+{
+	if (!path || !path[0])
+		return (cd_home());
+	else if (chdir(path) != 0)
+	{
+		perror("Minishell: cd");
+		// NEED TO CHANGE EXIT_STATUS
+		return (-1);
+	}
+	// NEED TO CHANGE EXIT_STATUS
+	return (0);
+}
