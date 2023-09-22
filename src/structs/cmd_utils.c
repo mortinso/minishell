@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/18 17:01:23 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:16:18 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,23 @@ void	cmdlist_print(t_cmdlist **cmdlist)
 int	cmd_args(char **arr, int pos)
 {
 	int	i;
+	int	counter;
 
 	i = pos;
+	counter = 0;
 	while (arr[i] && i < arr_size(arr))
 	{
-		if (ft_strcmp(arr[i], "|") == 0 || ft_strcmp(arr[i], "<") == 0 || \
-			ft_strcmp(arr[i], ">") == 0)
-			break ;
-		i++;
+		if (arr[i][0] == '<' || arr[i][0] == '>')
+			i += 2;
+		else if (ft_strcmp(arr[i], "|") == 0)
+			break;
+		else
+		{
+			counter++;
+			i++;
+		}
 	}
-	return (i - pos);
+	return (counter);
 }
 
 //Counts how many valid commands there are in main->arr.

@@ -23,7 +23,7 @@ YELLOW	=	"\033[1;33m"
 NC		=	"\033[0m"
 
 OBJ_DIR	=	obj
-LFT_DIR		=	libft
+LFT_DIR	=	libft
 
 LIBFT	=	$(LFT_DIR)/libft.a
 INC		=	-lreadline

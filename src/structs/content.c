@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:59:23 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/18 17:01:23 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:17:42 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,14 @@ char	**cmd_with_flags(char **arr, int pos)
 	if (!buf)
 		return (NULL);
 	while (i < args && arr[pos])
-		buf[i++] = arr[pos++];
+	{
+		if (arr[pos][0] == '<' || arr[pos][0] == '>')
+			pos += 2;
+		else if (ft_strcmp(arr[i], "|") == 0)
+			break;
+		else
+			buf[i++] = arr[pos++];
+	}
 	buf[i] = NULL;
 	return (buf);
 }

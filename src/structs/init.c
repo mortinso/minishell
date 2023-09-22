@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/18 17:01:22 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:14:48 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ t_content	*content_init(t_minishell *ms, int cmd_index)
 	content->append = redir_lst(ms->main_arr, cmd_index, ">>");
 	content->heredoc = redir_lst(ms->main_arr, cmd_index, "<<");
 // ^^ Might have to change it depending on how we handle heredoc ^^
-	while (ms->main_arr[cmd_index] && (ms->main_arr[cmd_index][0] == '<' || \
-		ms->main_arr[cmd_index][0] == '>') && ms->main_arr[cmd_index + 1])
-		cmd_index += 2;
 	content->cmd_flags = cmd_with_flags(ms->main_arr, cmd_index);
 	return (content);
 }
