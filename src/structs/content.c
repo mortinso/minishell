@@ -57,7 +57,7 @@ char	**cmd_with_flags(char **arr, int pos)
 	{
 		if (arr[pos][0] == '<' || arr[pos][0] == '>')
 			pos += 2;
-		else if (ft_strcmp(arr[i], "|") == 0)
+		else if (ft_strcmp(arr[pos], "|") == 0)
 			break;
 		else
 			buf[i++] = arr[pos++];

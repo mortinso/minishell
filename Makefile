@@ -2,21 +2,22 @@
 
 NAME = minishell
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm -rf
 
-SRC_MSH	=	main.c signals.c prompt.c errors.c errors2.c
+SRC_MSH	=	main.c signals.c prompt.c
 SRC_STC	=	cmd_utils.c init.c list.c content.c
 SRC_PRS	=	parse.c parse_split.c parse_str.c parse_counter.c
-SRC_BLT	=	pwd.c cd.c
-SRC_UTL	=	frees.c array_utils.c
+SRC_BLT	=	cd.c echo.c pwd.c exit.c env.c export.c unset.c
+SRC_UTL	=	frees.c array_utils.c str_utils.c
+SRC_EXE =	exec_utils.c exec.c open_file.c redir_hdoc.c run_pipes.c
 
 SRCS	=	$(addprefix src/, $(SRC_MSH))  $(addprefix src/built-ins/, $(SRC_BLT)) \
 			$(addprefix src/parser/, $(SRC_PRS)) $(addprefix src/structs/, $(SRC_STC)) \
-			$(addprefix src/utils/, $(SRC_UTL))
+			$(addprefix src/utils/, $(SRC_UTL)) $(addprefix src/exec/, $(SRC_EXE))
 OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRC_MSH:%.c=%.o)) $(addprefix $(OBJ_DIR)/,  $(SRC_BLT:%.c=%.o)) \
 			$(addprefix, $(OBJ_DIR)/, $(SRC_PRS:%.c=%.o)) $(addprefix, $(OBJ_DIR)/, $(SRC_STC:%.c=%.o)) \
-			$(addprefix, $(OBJ_DIR)/, $(SRC_UTL:%.c=%.o))
+			$(addprefix, $(OBJ_DIR)/, $(SRC_UTL:%.c=%.o)) $(addprefix, $(OBJ_DIR)/, $(SRC_EXE:%.c=%.o))
 
 GREEN	=	"\033[0;32m"
 YELLOW	=	"\033[1;33m"
