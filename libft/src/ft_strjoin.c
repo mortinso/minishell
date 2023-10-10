@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:34:27 by mortins-          #+#    #+#             */
-/*   Updated: 2023/08/31 13:47:19 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:29:32 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	new = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
 	if (!new)
 		return (0);
-	while (s1[i])
+	while (s1 && s1[i])
 	{
 		new[i] = s1[i];
 		i++;
 	}
-	while (s2[j])
+	while (s2 && s2[j])
 		new[i++] = s2[j++];
 	new[i] = '\0';
 	return (new);

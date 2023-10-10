@@ -41,7 +41,7 @@ void	signal_exit(t_minishell *ms)
 {
 	if (!(ms->str))
 	{
-		printf("exit\n");
+		write(2, "exit\n", 5);
 		free_ms(ms);
 	}
 }

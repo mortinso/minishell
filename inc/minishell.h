@@ -100,7 +100,6 @@ int						list_check_dup(t_list **list, char *str);
 void					list_swap(t_list *list);
 
 // +++++++++++++ parser/[.........] +++++++++++++
-// parse.clist_print(tmp->content->input);
 
 // array_utils.c
 int						arr_size(char **arr);

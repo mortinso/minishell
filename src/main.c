@@ -51,7 +51,6 @@ int	main(int ac, char **av, char **envp)
 	- Return error message when command is invalid
 	- Figure out where/how we are gonna substitute ($VAR) by it's actual value
 
-
 	Errors on:
 	- str_quotes();
 
