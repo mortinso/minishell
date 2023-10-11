@@ -14,6 +14,8 @@
 
 //	'readline' records whatever is inputed in terminal, and returns a memory
 //	allocated char *buffer
+int	g_exit = 0;
+
 int	main(int ac, char **av, char **envp)
 {
 	t_minishell	*ms;
@@ -38,6 +40,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	(void)av;
 	(void)ac;
+  exit (g_exit);
 }
 
 /*

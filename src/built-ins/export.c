@@ -51,7 +51,7 @@ int	export_error(char **arr)
 		if (ft_isdigit(arr[j][0]))
 			return (printf("Minishell: export: '%s':"
 					"not a valid identifier\n", arr[j]));
-		while (i < (int)ft_strlen(arr[j]) && arr[j][i] != '=') 
+		while (i < (int)ft_strlen(arr[j]) && arr[j][i] != '=')
 		{
 			if (!ft_isalnum(arr[j][i]) && arr[j][i] != '_')
 				return (printf("Minishell: export: '%s':"
@@ -126,11 +126,10 @@ void	export(char **arr, t_list **export, t_list **env)
 	buf = NULL;
 	while (i < arr_size(arr))
 	{
-		buf = ft_strdup(arr[i]);
+		buf = ft_strdup(arr[i++]);
 		env_override(buf, env);
 		if (export_override(buf, export))
 		{
-			i++;
 			free(buf);
 			continue ;
 		}
@@ -141,6 +140,5 @@ void	export(char **arr, t_list **export, t_list **env)
 		}
 		node = ft_lstnew(export_str(buf));
 		ft_lstadd_back(export, node);
-		i++;
 	}
 }

@@ -31,7 +31,7 @@ char	*find_home(t_list **env)
 	return (NULL);
 }
 
-int	cd_home(t_minishell *ms)
+void	cd_home(t_minishell *ms)
 {
 	char	*buf;
 
@@ -40,39 +40,31 @@ int	cd_home(t_minishell *ms)
 	{
 		free(buf);
 		write(2, "Minishell: cd: HOME is undefined\n", 29);
-			// NEED TO CHANGE EXIT_STATUS
-		return (-1);
+		g_exit = 1;
 	}
 	else if (chdir(buf) != 0)
 	{
 		free(buf);
 		perror("Minishell: cd: HOME");
-		// NEED TO CHANGE EXIT_STATUS
-		return (-1);
+		g_exit = 1;
 	}
-	free(buf);
-	// NEED TO CHANGE EXIT_STATUS
-	return (0);
+	g_exit = 0;
 }
 
-// Returns 0 on success.
-// Returns -1 on error
-int	cd(t_minishell *ms, char **path)
+void	cd(t_minishell *ms, char **path)
 {
 	if (path && arr_size(path) > 2)
 	{
 		write(2, "Minishell: cd: too many arguments\n", 34);
-		// CHANGE EXIT_STATUS TO 1
-		return (1);
+		g_exit = 1;
 	}
 	else if (!path || !path[1] || !path[1][0])
 		return (cd_home(ms));
 	else if (chdir(path[1]) != 0)
 	{
 		perror("Minishell: cd");
-		// NEED TO CHANGE EXIT_STATUS
-		return (-1);
+		g_exit = 1;
 	}
-	// NEED TO CHANGE EXIT_STATUS
-	return (0);
+	else
+		g_exit = 0;
 }

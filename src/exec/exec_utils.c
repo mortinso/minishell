@@ -71,9 +71,9 @@ char	*is_exec(char *str, char **paths)
 
 int	is_built_in(char *str)
 {
-	if (ft_strcmp(str, "echo") == 0 || ft_strcmp(str, "cd") == 0 
+	if (ft_strcmp(str, "echo") == 0 || ft_strcmp(str, "cd") == 0
 		|| ft_strcmp(str, "pwd") == 0 || ft_strcmp(str, "export") == 0
-		|| ft_strcmp(str, "unset") == 0 || ft_strcmp(str, "env") == 0 
+		|| ft_strcmp(str, "unset") == 0 || ft_strcmp(str, "env") == 0
 		|| ft_strcmp(str, "exit") == 0)
 		return (1);
 	return (0);
@@ -83,15 +83,18 @@ void	built_ins(t_minishell *ms, char **cmd_flags)
 {
 	if (ft_strcmp(cmd_flags[0], "echo") == 0)
 		echo(cmd_flags);
-	if (ft_strcmp(cmd_flags[0], "cd") == 0)
+	else if (ft_strcmp(cmd_flags[0], "cd") == 0)
 		cd(ms, cmd_flags);
-	if (ft_strcmp(cmd_flags[0], "pwd") == 0)
+	else if (ft_strcmp(cmd_flags[0], "pwd") == 0)
 		pwd();
-	if (ft_strcmp(cmd_flags[0], "exit") == 0)
+	else if (ft_strcmp(cmd_flags[0], "exit") == 0)
 	{
 		free_array(ms->paths);
 		ft_exit(ms, cmd_flags);
 	}
+	else if (ft_strcmp(cmd_flags[0], "export") == 0 || ft_strcmp(cmd_flags[0], \
+		"unset") == 0 || ft_strcmp(cmd_flags[0], "unset") == 0)
+		exp_env_unset(ms, cmd_flags);
 }
 
 void	exp_env_unset(t_minishell *ms, char **cmd_flags)
@@ -100,19 +103,23 @@ void	exp_env_unset(t_minishell *ms, char **cmd_flags)
 	{
 		list_sort(ms->exp);
 		if (export_error(cmd_flags))
+		{
+			g_exit = 1;
 			return ;
+		}
 		if (arr_size(cmd_flags) > 1)
 			export(cmd_flags, ms->exp, ms->env);
 		else
 			list_print(ms->exp);
 	}
-	if (ft_strcmp(cmd_flags[0], "unset") == 0)
+	else if (ft_strcmp(cmd_flags[0], "unset") == 0)
 	{
 		if (arr_size(cmd_flags) > 1)
 			unset(ms->env, ms->exp, cmd_flags);
 	}
-	if (ft_strcmp(cmd_flags[0], "env") == 0)
+	else if (ft_strcmp(cmd_flags[0], "env") == 0)
 		list_print(ms->env);
+	g_exit = 0;
 }
 
 int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)
@@ -121,7 +128,6 @@ int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)
 
 	if (cmdlist)
 	{
-		exp_env_unset(ms, cmdlist->content->cmd_flags);
 		if (redir_check_out(cmdlist->content, ms->main_arr, i)
 			|| redir_check_in(cmdlist->content, ms->main_arr, i))
 		{

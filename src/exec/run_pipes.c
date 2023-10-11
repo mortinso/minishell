@@ -45,7 +45,6 @@ int	no_pipe(t_minishell *ms, t_cmdlist *cmdlist)
 {
 	pid_t	child;
 
-	exp_env_unset(ms, cmdlist->content->cmd_flags);
 	redir_in(cmdlist->content, ms->main_arr, 0);
 	redir_out(cmdlist->content, ms->main_arr, 0);
 	child = fork();
@@ -83,7 +82,6 @@ int	run(t_minishell *ms)
 	}
 	while (cmds > 1 && cmds-- > 0 && tmp->next) //if there's a pipe
 	{
-		exp_env_unset(ms, tmp->content->cmd_flags);
 		i += run_pipes(ms, tmp, i);
 		tmp = tmp->next;
 	}

@@ -48,7 +48,7 @@ void	exec(t_minishell *ms, t_cmdlist *cmdlist)
 		free_array(env_arr);
 		exit (0);
 	}
-	if (cmd_path 
+	if (cmd_path
 		&& execve(cmd_path, cmdlist->content->cmd_flags, env_arr) == -1)
 		perror("EXECVE ERROR\n");
 	free_array(env_arr);
@@ -66,7 +66,7 @@ void	child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i)
 	else
 	{
 		redir_in(cmdlist->content, ms->main_arr, i);
-		close(pipe_fd[0]); 
+		close(pipe_fd[0]);
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
 	}

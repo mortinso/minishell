@@ -26,7 +26,7 @@ int	echo_flag(char *str)
 	return (0);
 }
 
-int	echo(char **cmd_flags)
+int	echo(char **cmd_flags) //g_exit > 0 if there's an error somehow
 {
 	int		j;
 	int		cmds;
@@ -50,5 +50,6 @@ int	echo(char **cmd_flags)
 	}
 	if (!n_flag)
 		printf("\n");
+	g_exit = 0;
 	return (0);
 }

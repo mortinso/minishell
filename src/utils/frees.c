@@ -25,7 +25,7 @@ void	free_ms(t_minishell *ms)
 	free_list_malloc(ms->env);
 	free_list_malloc(ms->exp);
 	free(ms);
-	exit (0); // exit(EXIT_STATUS)
+	exit (g_exit);
 }
 
 int	free_array(char **arr)
@@ -43,7 +43,7 @@ int	free_array(char **arr)
 void	malloc_error(t_minishell *ms)
 {
 	write(2, "Error: Malloc failed\n", 22);
-	// change EXIT_STATUS
+	g_exit = 12;
 	free_ms(ms);
 }
 

@@ -21,7 +21,7 @@ int	open_file_in(t_content *content, t_list *lst)
 		{
 			write(2, "Minishell: ", 11);
 			perror(lst->data);
-			//CHANGE EXIT_STATUS
+			g_exit = errno;
 			return (1);
 		}
 		dup2(content->fd_in, STDIN_FILENO);
@@ -40,7 +40,7 @@ int	open_file_hdoc(t_content *content, t_list *lst)
 		{
 			write(2, "Minishell: ", 11);
 			perror(lst->data);
-			//CHANGE EXIT_STATUS
+			g_exit = errno;
 			return (1);
 		}
 		dup2(content->fd_in, STDIN_FILENO);
@@ -59,7 +59,7 @@ int	open_file_out(t_content *content, t_list *lst)
 		{
 			write(2, "Minishell: ", 11);
 			perror(lst->data);
-			//CHANGE EXIT_STATUS
+			g_exit = errno;
 			return (1);
 		}
 		dup2(content->fd_out, STDOUT_FILENO);
@@ -78,7 +78,7 @@ int	open_file_app(t_content *content, t_list *lst)
 		{
 			write(2, "Minishell: ", 11);
 			perror(lst->data);
-			//CHANGE EXIT_STATUS
+			g_exit = errno;
 			return (1);
 		}
 		dup2(content->fd_out, STDOUT_FILENO);

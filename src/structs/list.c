@@ -85,7 +85,7 @@ int	list_check_dup(t_list **list, char *str)
 	return (0);
 }
 
-void	list_swap(t_list *list)
+void	list_swap(t_list *list) //what is this?
 {
 	char	*str;
 	t_list	*head;

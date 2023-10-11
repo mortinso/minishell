@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:02:32 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/14 17:15:23 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:05:34 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ char	**split_main(t_minishell *ms, char *str)
 	i = 0;
 	buff = malloc(sizeof(char *) * (ms->words + 1));
 	if (!buff)
-		return (NULL);
+		malloc_error(ms);
 	while (i < ms->words)
 	{
 		while (*str && meta_char(*str) == 1)
 			str++;
 		word_len = split_word(str);
-		buff[i++] = split_temp(str, word_len);
+		buff[i++] = split_temp(ms, str, word_len);
 		str = str + word_len;
 	}
 	buff[i] = 0;
@@ -52,7 +52,7 @@ int	split_word(char *str)
 	return (i);
 }
 
-char	*split_temp(char *str, int word_len)
+char	*split_temp(t_minishell *ms, char *str, int word_len)
 {
 	int		i;
 	char	*temp;
@@ -61,7 +61,7 @@ char	*split_temp(char *str, int word_len)
 	temp = NULL;
 	temp = malloc(sizeof(char) * (word_len + 1));
 	if (!temp)
-		return (NULL);
+		malloc_error(ms);
 	while (*str && i < word_len)
 		temp[i++] = *str++;
 	temp[i] = '\0';

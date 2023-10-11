@@ -97,10 +97,10 @@ void	ft_exit(t_minishell *ms, char **args)
 			(unsigned long long)(LLONG_MAX + neg))
 		{
 			printf("Minishell: exit: %s: numeric argument required\n", args[1]);
-			//EXIT_STATUS = 2;
+			g_exit = 2;
 		}
 		else if (0 <= ft_atoi(args[1]) && exit_atoull(args[1]) <= 255)
-			{}//EXIT_STATUS = (int)exit_atoull(args[1]);
+			g_exit = (int)exit_atoull(args[1]);
 	}
 	dup2(buf_fdout, STDOUT_FILENO);
 	close(buf_fdout);

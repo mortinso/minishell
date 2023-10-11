@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <linux/limits.h>
+# include <errno.h>
 # include <limits.h>
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -33,6 +34,8 @@
 
 //signal
 # include <signal.h>
+
+extern int g_exit;
 
 //-----------------------------------STRUCT-------------------------------------
 typedef struct s_content
@@ -87,7 +90,7 @@ int						strlen_chr(char *str, char c);
 
 //content.c
 t_list					*redir_lst(char **arr, int index, char *limiter);
-char					**cmd_with_flags(char **arr, int pos);
+char					**cmd_with_flags(t_minishell *ms, char **arr, int pos);
 
 // init.c
 void					var_init(t_minishell *ms);
@@ -100,16 +103,10 @@ int						list_check_dup(t_list **list, char *str);
 void					list_swap(t_list *list);
 
 // +++++++++++++ parser/[.........] +++++++++++++
-
-// array_utils.c
-int						arr_size(char **arr);
-char					**arr_cpy(char **arr, int pos, int size);
-void					arr_print(char *str, char **arr);
-
 // parse_split.c
 char					**split_main(t_minishell *ms, char *str);
 int						split_word(char *str);
-char					*split_temp(char *str, int word_len);
+char					*split_temp(t_minishell *ms, char *str, int word_len);
 
 // parse_counter.c
 void					str_counter(t_minishell *ms, char *str);
@@ -125,9 +122,8 @@ int						meta_char(char c);
 void					parse_main(t_minishell *ms);
 
 // ++++++++++++++ built-ins/[.....] +++++++++++++
-
 //cd.c
-int						cd(t_minishell *ms, char **path);
+void						cd(t_minishell *ms, char **path);
 
 //echo.c
 int						echo(char **cmd_flags);
@@ -157,10 +153,9 @@ void					unset_exp(t_list **exp, char *str);
 void					unset(t_list **env, t_list **exp, char **arr);
 
 // ++++++++++++++++ utils/[.....] +++++++++++++++
-
 //array_utils.c
 int						arr_size(char **arr);
-char					**arr_cpy(char **arr, int pos, int size);
+char					**arr_cpy(t_minishell *ms, char **arr, int pos, int size);
 void					arr_print(char *str, char **arr);
 
 // frees.c
@@ -174,7 +169,6 @@ void					free_list_malloc(t_list **exp);
 void					env_var(t_list **env, char **arr);
 
 // ++++++++++++++++ exec/[.....] +++++++++++++++
-
 //exec_utils.c
 char					**path_init(t_minishell *ms);
 char					*is_exec(char *str, char **paths);
