@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 15:18:03 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:20:29 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+// Might have to change how we handle content->heredoc, depending on our
+// solution for heredoc
 t_content	*content_init(t_minishell *ms, int cmd_index)
 {
 	t_content	*content;
@@ -21,7 +23,6 @@ t_content	*content_init(t_minishell *ms, int cmd_index)
 	content->output = redir_lst(ms->main_arr, cmd_index, ">");
 	content->append = redir_lst(ms->main_arr, cmd_index, ">>");
 	content->heredoc = redir_lst(ms->main_arr, cmd_index, "<<");
-// ^^ Might have to change it depending on how we handle heredoc ^^
 	content->cmd_flags = cmd_with_flags(ms, ms->main_arr, cmd_index);
 	return (content);
 }

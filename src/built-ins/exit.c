@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:29:16 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/22 12:26:11 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:22:33 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,23 @@ int	exit_format_error(char *arg)
 	return (0);
 }
 
-void	exit_args_error(void)
+void	exit_status(char **args)
 {
-	printf("Minishell: exit: too many arguments\n");
-	//EXIT_STATUS = 1;
+	int	neg;
+
+	neg = 0;
+	if (arr_size(args) > 2)
+		g_exit = 1;
+	else if (arr_size(args) == 2 && args[1] && args[1][0])
+	{
+		if (ft_strchr(args[1], '-'))
+			neg = 1;
+		if (exit_format_error(args[1]) || exit_atoull(args[1]) > \
+			(unsigned long long)(LLONG_MAX + neg))
+			g_exit = 2;
+		else if (0 <= ft_atoi(args[1]) && exit_atoull(args[1]) <= 255)
+			g_exit = (int)exit_atoull(args[1]);
+	}
 }
 
 /*
@@ -75,34 +88,34 @@ void	exit_args_error(void)
 	than LLONG_MIN. Therefore I had to create a function that could convert
 	(char)n into a number larger than a long long int, so an unsigned long long
 	int. By checking if n contains a '-' I know if the number is negative or not,
-	so that I can add 1 to LLONG_MAX on line 94.17. (since exit_atoull() converts
+	so that I can add 1 to LLONG_MAX on line 91.33. (since exit_atoull() converts
 	n to an unsigned number).
 */
-void	ft_exit(t_minishell *ms, char **args)
+void	ft_exit(t_minishell *ms, char **args, int exit)
 {
-	int		buf_fdout;
 	int		neg;
 
-	buf_fdout = dup(STDOUT_FILENO);
-	dup2(STDERR_FILENO, STDOUT_FILENO);
-	printf("exit\n");
 	neg = 0;
 	if (arr_size(args) > 2)
-		exit_args_error();
+	{
+		write(STDERR_FILENO, "Minishell: exit: too many arguments\n", 36);
+		g_exit = 1;
+	}
 	else if (arr_size(args) == 2 && args[1] && args[1][0])
 	{
-		if (ft_strchr(args[1],'-'))
+		if (ft_strchr(args[1], '-'))
 			neg = 1;
 		if (exit_format_error(args[1]) || exit_atoull(args[1]) > \
 			(unsigned long long)(LLONG_MAX + neg))
 		{
-			printf("Minishell: exit: %s: numeric argument required\n", args[1]);
+			write(STDERR_FILENO, "Minishell: exit: ", 17);
+			ft_putstr_fd(args[1], STDERR_FILENO);
+			write(STDERR_FILENO, ": numeric argument required\n", 28);
 			g_exit = 2;
 		}
 		else if (0 <= ft_atoi(args[1]) && exit_atoull(args[1]) <= 255)
 			g_exit = (int)exit_atoull(args[1]);
 	}
-	dup2(buf_fdout, STDOUT_FILENO);
-	close(buf_fdout);
-	free_ms(ms);
+	if (!exit)
+		free_ms(ms);
 }

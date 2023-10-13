@@ -3,52 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:08:39 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/06 12:30:12 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:41:31 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	*find_home(t_list **env)
-{
-	t_list	*tmp;
-	char	*buf;
-
-	buf = NULL;
-	tmp = *env;
-	while (tmp)
-	{
-		if (ft_strncmp((char *)tmp->data, "HOME=", 5) == 0)
-		{
-			buf = ft_strtrim((char *)tmp->data, "HOME=");
-			return (buf);
-		}
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
 void	cd_home(t_minishell *ms)
 {
 	char	*buf;
 
-	buf = find_home(ms->env);
+	buf = env_var_str("HOME", ms->env);
 	if (!buf)
 	{
-		free(buf);
 		write(2, "Minishell: cd: HOME is undefined\n", 29);
 		g_exit = 1;
 	}
 	else if (chdir(buf) != 0)
 	{
-		free(buf);
 		perror("Minishell: cd: HOME");
 		g_exit = 1;
 	}
-	g_exit = 0;
+	else
+		g_exit = 0;
+	if (buf)
+		free(buf);
 }
 
 void	cd(t_minishell *ms, char **path)

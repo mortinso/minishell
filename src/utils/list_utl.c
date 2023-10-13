@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   list_utl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 12:35:52 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:18:16 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	list_check_dup(t_list **list, char *str)
 	return (0);
 }
 
-void	list_swap(t_list *list) //what is this?
+void	list_swap(t_list *list)
 {
 	char	*str;
 	t_list	*head;
@@ -95,7 +95,8 @@ void	list_swap(t_list *list) //what is this?
 	head = list;
 	if (!head && !head->next)
 	{
-		printf("List Swap Error\n");
+		write(2, "List Swap Error\n", 16);
+		g_exit = 1;
 		return ;
 	}
 	tmp = head;
