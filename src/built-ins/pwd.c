@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 18:05:31 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/05 15:38:29 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:53:57 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // Prints current working directory
 void	pwd(void)
 {
-	char	cwd[PATH_MAX];
+	char	cwd[PATH_MAX + 1];
 	int		i;
 
 	i = 0;
@@ -27,7 +27,7 @@ void	pwd(void)
 	}
 	else
 	{
-		perror("Error");
+		perror("Minishell: pwd");
 		g_exit = errno;
 		return ;
 	}

@@ -20,7 +20,7 @@ char	**path_init(t_minishell *ms)
 	char	**path_dir;
 	char	*env_path_str;
 
-	env_path_str = path_str(*ms->env);
+	env_path_str = var_str(*ms->env, "PATH=");
 	env_path = ft_strtrim(env_path_str, "PATH=");
 	paths = ft_split(env_path, ':');
 	path_dir = malloc(sizeof(char *) * (arr_size(paths) + 1));

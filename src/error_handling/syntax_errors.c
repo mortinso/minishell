@@ -16,10 +16,8 @@
 int	begin_error(char *str)
 {
 	int	i;
-	int	size;
 
 	i = 0;
-	size = ft_strlen(str);
 	while (str[i] && meta_char(str[i]) == 1)
 		i++;
 	if (str[i] && str[i] == '|')

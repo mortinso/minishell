@@ -197,7 +197,7 @@ void					arr_print(char *str, char **arr);
 // env_utl.c
 char					*env_var_str(char *str, t_list **env);
 void					env_var(t_list **env, char **arr);
-char					*path_str(t_list *env);
+char					*var_str(t_list *env, char *var);
 
 // list_utl.c
 void					list_print(t_list **list);
@@ -209,6 +209,7 @@ void					list_swap(t_list *list);
 // str_utl.c
 int						strlen_chr(char *str, char c);
 int						strcmp_chr(char *s1, char *s2, char c);
+int						strcmp_nochr(char *s1, char *s2, char c);
 
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
 // frees.c
