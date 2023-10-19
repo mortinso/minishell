@@ -6,11 +6,19 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:37:46 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/19 18:14:37 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:19:39 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	reset_fds(t_minishell *ms)
+{
+	dup2(ms->fdout_buf, STDOUT_FILENO);
+	close(ms->fdout_buf);
+	dup2(ms->fdin_buf, STDIN_FILENO);
+	close(ms->fdin_buf);
+}
 
 int	find_cmd_pos(char **main_arr, int pos)
 {
@@ -54,5 +62,6 @@ int	run(t_minishell *ms)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_exit = WEXITSTATUS(status);
+	reset_fds(ms);
 	return ;
 }
