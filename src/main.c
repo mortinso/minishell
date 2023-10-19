@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 16:54:22 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:00:51 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int ac, char **av, char **envp)
 
 /*
 	Need to figure out how we're actually gonna do heredoc
+	exit is wrong
 */
 
 // `>output>>append echo 1 2 3 <input<<heredoc | <in<<here ls -l >out>>app`
