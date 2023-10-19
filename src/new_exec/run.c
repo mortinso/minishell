@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:37:46 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/19 15:57:14 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:14:37 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,36 @@ int	find_cmd_pos(char **main_arr, int pos)
 	return (pos);
 }
 
-/* void	child(t_minishell *ms, t_cmdlist *cmd)
-{
-
-} */
-
-/* void	parent(t_minishell *ms, t_content *cmd)
-{
-
-} */
-
 int	run(t_minishell *ms)
 {
 	t_cmdlist	*tmp;
 	int			pos;
+	pid_t		pid;
+	int			status;
 
 	tmp = ms->cmdlist;
 	pos = 0;
-	if (ms->cmd_count == 1)
+	pid = fork();
+	if (pid < 0)
+		{}//fork error
+	if (pid == 0 && ms->cmd_count == 1)
 	{
-	//	parent
+		redirect(ms, tmp->content, ms->main_arr, pos);
+		exec(ms, tmp->content->cmd_flags)
 	}
-	while (cmd_run < cmd_count)
+	else if (pid == 0)
 	{
-		child(ms, tmp->content, pos);
-		pos = find_cmd_pos(ms->main_arr, pos);
-		tmp = tmp->next;
+		while (cmd_run < cmd_count)
+		{
+			child(ms, tmp->content, pos);
+			pos = find_cmd_pos(ms->main_arr, pos);
+			tmp = tmp->next;
+		}
+		redirect(ms, tmp->content, ms->main_arr, pos);
+		exec(ms, tmp->content->cmd_flags)
 	}
-	//parent
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		g_exit = WEXITSTATUS(status);
 	return ;
 }

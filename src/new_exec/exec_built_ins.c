@@ -6,23 +6,26 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:43:48 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/19 16:00:07 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/19 17:19:17 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	is_builtin(char *str)
+int	is_built_in(t_minishell *ms, char **cmd_arr)
 {
-	if (ft_strcmp(str, "echo") == 0 || ft_strcmp(str, "cd") == 0 \
-		|| ft_strcmp(str, "pwd") == 0 || ft_strcmp(str, "export") == 0 \
-		|| ft_strcmp(str, "unset") == 0 || ft_strcmp(str, "env") == 0 \
-		|| ft_strcmp(str, "exit") == 0)
+	if (ft_strcmp(cmd_arr[0], "echo") == 0 || ft_strcmp(cmd_arr[0], "cd") == 0 \
+		|| ft_strcmp(cmd_arr[0], "pwd") == 0 || ft_strcmp(cmd_arr[0], \
+		"export") == 0 || ft_strcmp(cmd_arr[0], "unset") == 0 || \
+		ft_strcmp(cmd_arr[0], "env") == 0 || ft_strcmp(cmd_arr[0], "exit") == 0)
+	{
+		built_ins(ms, cmd_arr, 0);
 		return (1);
+	}
 	return (0);
 }
 
-void	exp_built_in(t_minishell *ms, char *cmd_arr)
+void	exp_built_in(t_minishell *ms, char **cmd_arr)
 {
 	if (ft_strcmp(cmd_flags[0], "export") == 0) //Check if this makes sense
 	{
