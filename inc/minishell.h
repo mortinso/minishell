@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 17:25:50 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:56:02 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int						quote_error(char *str);
 int						pipe_error(char *str);
 int						dollar_error(char *str);
 
-//++++++++++++++++ exec/[.....] +++++++++++++++++++++++++++++++++++++++++++++++
+/* //++++++++++++++++ exec/[.....] +++++++++++++++++++++++++++++++++++++++++++++++
 // exec_built_ins.c
 int						is_built_in(char *str);
 void					built_ins(t_minishell *ms, char **cmd_with_flags, \
@@ -153,7 +153,31 @@ int						redir_out(t_content *content, char **arr, int pos);
 void					set_fd(t_minishell *ms);
 
 // run_pipes.c
-int						run(t_minishell *ms);
+int						run(t_minishell *ms) ;*/
+
+//++++++++++++++++ new_exec/[.........] +++++++++++++++++++++++++++++++++++++++
+// exec_built_ins.c
+int						is_built_in(t_minishell *ms, char **cmd_arr);
+void					built_ins(t_minishell *ms, char **cmd_arr, int exit);
+
+// heredoc.c
+void					heredoc(char *limiter);
+
+// processes.c
+void					child(t_minishell *ms, t_cmdlist *cmd, int pos);
+char					**get_directories(t_list **env);
+char					*get_cmd_path(char **paths, char *cmd);
+void					exec(t_minishell *ms, char **cmd_arr);
+
+// redirections.c
+void					redirect_out(t_content *cmd, t_list *out, int append);
+void					redirect_in(t_content *cmd, t_list *in);
+void					redirect(t_content *cmd, char **main_arr, int pos);
+
+// run.c
+void					reset_fds(t_minishell *ms);
+int						find_cmd_pos(char **main_arr, int pos);
+void					run(t_minishell *ms);
 
 //++++++++++++++++ parser/[.........] +++++++++++++++++++++++++++++++++++++++++
 // parse_counter.c
@@ -193,6 +217,7 @@ int						arr_size(char **arr);
 char					**arr_cpy(t_minishell *ms, char **arr, int pos, \
 	int size);
 void					arr_print(char *str, char **arr);
+char					**list_to_array(t_list **list);
 
 // env_utl.c
 char					*env_var_str(char *str, t_list **env);

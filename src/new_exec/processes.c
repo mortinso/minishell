@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:34:23 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/19 18:15:08 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:07:43 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void	child(t_minishell *ms, t_cmdlist *cmd, int pos)
 		{}//fork error
 	if (pid == 0)
 	{
-		redirect(ms, cmd->content, ms->main_arr, pos);
+		redirect(cmd->content, ms->main_arr, pos);
 		if (!cmd->content->output && !cmd->content->append)
 		{
-			dup2(fd[1], STDOUT_FILENO);
-			close(fd[0]);
-			close(fd[1]);
+			dup2(pipe_fd[1], STDOUT_FILENO);
+			close(pipe_fd[0]);
+			close(pipe_fd[1]);
 		}
-		exec();
+		exec(ms, cmd->content->cmd_flags);
 	}
 	else
 	{
@@ -46,6 +46,7 @@ char	**get_directories(t_list **env)
 	t_list	*tmp;
 	char	**paths;
 	char	**path_dir;
+	int		i;
 
 	tmp = *env;
 	while (tmp && strncmp(tmp->data, "PATH", 4) != 0)
@@ -91,6 +92,7 @@ void	exec(t_minishell *ms, char **cmd_arr)
 {
 	char	**paths;
 	char	*cmd_path;
+	char	**env;
 
 	if (is_built_in(ms, cmd_arr))
 		free_ms(ms);
@@ -102,7 +104,8 @@ void	exec(t_minishell *ms, char **cmd_arr)
 		free(cmd_path);
 		free(ms);
 	}
-	if (execve(cmd_path, cmd, envp) == -1)
+	env = list_to_array(ms->env);
+	if (execve(cmd_path, cmd_arr, env) == -1)
 	{
 		free(cmd_path);
 		g_exit = errno;

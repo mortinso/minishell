@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:43:48 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/19 17:19:17 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/20 15:20:00 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ int	is_built_in(t_minishell *ms, char **cmd_arr)
 
 void	exp_built_in(t_minishell *ms, char **cmd_arr)
 {
-	if (ft_strcmp(cmd_flags[0], "export") == 0) //Check if this makes sense
+	if (ft_strcmp(cmd_arr[0], "export") == 0) //Check if this makes sense
 	{
 		list_sort(ms->exp);
-		if (export_error(cmd_flags))
+		if (export_error(cmd_arr))
 		{
 			g_exit = 1;
 			return ;
 		}
-		if (arr_size(cmd_flags) > 1)
-			export(cmd_flags, ms->exp, ms->env);
+		if (arr_size(cmd_arr) > 1)
+			export(cmd_arr, ms->exp, ms->env);
 		else
 			list_print(ms->exp);
 	}
@@ -63,8 +63,8 @@ void	built_ins(t_minishell *ms, char **cmd_arr, int exit)
 	}
 	else if (ft_strcmp(cmd_arr[0], "env") == 0)
 		list_print(ms->env);
-	else if (ft_strcmp(cmd_flags[0], "unset") == 0)
-		unset(ms->env, ms->exp, cmd_flags);
+	else if (ft_strcmp(cmd_arr[0], "unset") == 0)
+		unset(ms->env, ms->exp, cmd_arr);
 	else
 		exp_built_in(ms, cmd_arr);
 }

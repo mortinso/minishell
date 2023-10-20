@@ -8,13 +8,14 @@ RM = rm -rf
 SRC_MSH	=	frees.c main.c prompt.c signals.c
 SRC_BLT	=	cd.c echo.c env.c exit.c export.c pwd.c unset.c
 SRC_ERR =	errors.c syntax_errors.c syntax_errors2.c
-SRC_EXE =	exec_built_ins.c exec_utils.c exec.c open_file.c redir_hdoc.c run_pipes.c
+#SRC_EXE =	exec_built_ins.c exec_utils.c exec.c open_file.c redir_hdoc.c run_pipes.c
+SRC_EXE =	exec_built_ins.c heredoc.c processes.c redirections.c run.c
 SRC_PRS	=	parse_counter.c parse_split.c parse_str.c parse.c
 SRC_STC	=	cmd_utils.c content.c init.c
 SRC_UTL	=	array_utl.c list_utl.c env_utl.c str_utl.c
 
 SRCS	=	$(addprefix src/, $(SRC_MSH)) $(addprefix src/built-ins/, $(SRC_BLT)) \
-			$(addprefix src/error_handling/, $(SRC_ERR)) $(addprefix src/exec/, $(SRC_EXE)) \
+			$(addprefix src/error_handling/, $(SRC_ERR)) $(addprefix src/new_exec/, $(SRC_EXE)) \
 			$(addprefix src/parser/, $(SRC_PRS)) $(addprefix src/structs/, $(SRC_STC)) \
 			$(addprefix src/utils/, $(SRC_UTL))
 OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRC_MSH:%.c=%.o)) $(addprefix $(OBJ_DIR)/,  $(SRC_BLT:%.c=%.o)) \
