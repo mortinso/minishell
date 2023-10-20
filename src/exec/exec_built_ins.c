@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 16:55:30 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/12 16:56:22 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/20 18:14:18 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,23 @@ int	is_built_in(char *str)
 		|| ft_strcmp(str, "exit") == 0)
 		return (1);
 	return (0);
+}
+
+void	exp_built_in(t_minishell *ms, char **cmd_flags)
+{
+	if (ft_strcmp(cmd_flags[0], "export") == 0)
+	{
+		list_sort(ms->exp);
+		if (export_error(cmd_flags))
+		{
+			g_exit = 1;
+			return ;
+		}
+		if (arr_size(cmd_flags) > 1)
+			export(cmd_flags, ms->exp, ms->env);
+		else
+			list_print(ms->exp);
+	}
 }
 
 void	built_ins(t_minishell *ms, char **cmd_flags, int exit)
@@ -41,32 +58,11 @@ void	built_ins(t_minishell *ms, char **cmd_flags, int exit)
 			free_ms(ms);
 		}
 	}
-	else if (ft_strcmp(cmd_flags[0], "export") == 0 || ft_strcmp(cmd_flags[0], \
-		"unset") == 0 || ft_strcmp(cmd_flags[0], "env") == 0)
-		exp_env_unset(ms, cmd_flags);
-}
-
-void	exp_env_unset(t_minishell *ms, char **cmd_flags)
-{
-	if (ft_strcmp(cmd_flags[0], "export") == 0)
-	{
-		list_sort(ms->exp);
-		if (export_error(cmd_flags))
-		{
-			g_exit = 1;
-			return ;
-		}
-		if (arr_size(cmd_flags) > 1)
-			export(cmd_flags, ms->exp, ms->env);
-		else
-			list_print(ms->exp);
-	}
-	else if (ft_strcmp(cmd_flags[0], "unset") == 0)
-	{
-		if (arr_size(cmd_flags) > 1)
-			unset(ms->env, ms->exp, cmd_flags);
-	}
 	else if (ft_strcmp(cmd_flags[0], "env") == 0)
 		list_print(ms->env);
-	g_exit = 0;
+	else if (ft_strcmp(cmd_flags[0], "unset") == 0)
+		unset(ms->env, ms->exp, cmd_flags);
+	else if (ft_strcmp(cmd_flags[0], "export") == 0 || ft_strcmp(cmd_flags[0], \
+		"unset") == 0)
+		exp_built_in(ms, cmd_flags);
 }
