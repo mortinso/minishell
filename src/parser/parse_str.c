@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/18 16:32:45 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:53:16 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	str_quotes(char *str, char c, int i)
 		while (str[i] && str[i] != c)
 			i++;
 		if (!str[i])
-			return (i); // Should stop the process and syntax error
+			return (i);
 		i++;
 		if (str[i] && !meta_char(str[i]))
 			return (str_plain(str, i));

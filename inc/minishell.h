@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/20 18:13:57 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/25 14:50:23 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ extern int	g_exit;
 //-----------------------------------STRUCT-------------------------------------
 typedef struct s_content
 {
-	int		fd_in;
-	int		fd_out;
 	t_list	*input;
 	t_list	*output;
 	t_list	*append;
@@ -58,14 +56,13 @@ typedef struct s_cmdlist
 typedef struct s_minishell
 {
 	char			*str;
-	int				words;
 	t_list			**env;
 	t_list			**exp;
-	int				running;
 	char			**paths;
 	char			*prompt;
 	int				fdin_buf;
 	int				fdout_buf;
+	int				cmd_in_fd;
 	int				cmd_count;
 	char			**main_arr;
 	t_cmdlist		*cmdlist;
@@ -88,7 +85,7 @@ void					env_override(char *str, t_list **env);
 
 // exit.c
 void					exit_status(char **args);
-void					ft_exit(t_minishell *ms, char **args, int exit);
+void					ft_exit(t_minishell *ms, char **args);
 
 // export.c
 t_list					**export_init(t_list **env);
@@ -120,38 +117,9 @@ int						quote_error(char *str);
 int						pipe_error(char *str);
 int						dollar_error(char *str);
 
-//++++++++++++++++ exec/[.....] +++++++++++++++++++++++++++++++++++++++++++++++
-// exec_built_ins.c
-int						is_built_in(char *str);
-void					built_ins(t_minishell *ms, char **cmd_with_flags, \
-	int exit);
-
-// exec_utils.c
-char					**path_init(t_minishell *ms);
-char					*is_exec(char *str, char **paths);
-void					last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i);
-
-// exec.c
-void					exec(t_minishell *ms, t_cmdlist *cmdlist);
-void					child_process(t_minishell *ms, t_cmdlist *cmdlist, \
-	int *pipe_fd, int i);
-void					parent_process(int *pipe_fd);
-
-// redirections.c
-void					set_fd(t_minishell *ms);
-void					redirect_out(t_content *cmd, t_list *out, int append);
-void					redirect_in(t_content *cmd, t_list *in);
-void					redirect(t_content *cmd, char **main_arr, int pos);
-
-// heredoc.c
-void					heredoc(char *limiter);
-
-// run_pipes.c
-int						run(t_minishell *ms);
-
 //++++++++++++++++ parser/[.........] +++++++++++++++++++++++++++++++++++++++++
 // parse_counter.c
-void					str_counter(t_minishell *ms, char *str);
+int						word_counter(char *str);
 
 // parse_split.c
 char					**split_main(t_minishell *ms, char *str);
@@ -165,8 +133,33 @@ int						str_envar(char *str, int i);
 int						str_others(char *str, int i);
 int						meta_char(char c);
 
-// parse.c
-void					parse_main(t_minishell *ms);
+//++++++++++++++++ run/[.....] +++++++++++++++++++++++++++++++++++++++++++++++
+// exec.c
+void					exec(t_minishell *ms, char **cmd_arr);
+int						is_exec(char *cmd, char **paths);
+char					**special_path(const char *cmd);
+char					**get_paths(t_list **env);
+char					*get_cmd_path(char **paths, char *cmd);
+
+// exec_built_ins.c
+int						is_built_in(char *str);
+void					built_ins(t_minishell *ms, char **cmd_arr, int exit);
+
+// redirections.c
+void					reset_fds(t_minishell *ms);
+void					redirect_out(t_list *out, int append);
+void					redirect_in(t_list *in);
+void					redirect(t_content *cmd, char **main_arr, int pos);
+
+// heredoc.c
+void					heredoc(char *limiter);
+
+// run.c
+void					run(t_minishell *ms);
+void					child(t_minishell *ms, int *pipe_fd, int cmds_run, \
+	int pos);
+void					parent(t_minishell *ms, int *pipe_fd, int cmds_run, \
+	int pos);
 
 //++++++++++++++++ structs/[.....] ++++++++++++++++++++++++++++++++++++++++++++
 // cmd_utils.c
@@ -187,6 +180,7 @@ int						arr_size(char **arr);
 char					**arr_cpy(t_minishell *ms, char **arr, int pos, \
 	int size);
 void					arr_print(char *str, char **arr);
+char					**list_to_array(t_list **list);
 
 // env_utl.c
 char					*env_var_str(char *str, t_list **env);

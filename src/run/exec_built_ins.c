@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 16:55:30 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/20 18:14:18 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:18:39 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,7 @@ void	built_ins(t_minishell *ms, char **cmd_flags, int exit)
 	{
 		if (exit)
 			write(STDERR_FILENO, "exit\n", 5);
-		ft_exit(ms, cmd_flags, exit);
-		if (exit)
-		{
-			free_array(ms->paths);
-			free_ms(ms);
-		}
+		ft_exit(ms, cmd_flags);
 	}
 	else if (ft_strcmp(cmd_flags[0], "env") == 0)
 		list_print(ms->env);
