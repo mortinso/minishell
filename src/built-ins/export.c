@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/19 16:50:24 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/26 16:51:36 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@ int	export_override(char *str, t_list **export)
 	buf = export_str(str);
 	while (tmp)
 	{
-		if (!ft_strchr(buf, '='))
+		if (!ft_strchr(buf, '=') && strcmp_nochr(buf, tmp->data, '=') == 0)
 			break ;
-		if (strcmp_chr((char *)tmp->data, buf, '=') == 0
-			|| ft_strcmp((char *)tmp->data, buf) == 0)
+		if (strcmp_chr(tmp->data, buf, '=') == 0 || (!ft_strchr(tmp->data, '=') \
+			&& strcmp_nochr(tmp->data, buf, '=') == 0))
 		{
 			free(tmp->data);
 			tmp->data = ft_strdup(buf);
@@ -136,19 +136,14 @@ void	export(char **arr, t_list **export, t_list **env)
 	buf = NULL;
 	while (i < arr_size(arr))
 	{
-		buf = ft_strdup(arr[i++]);
-		env_override(buf, env);
-		if (export_override(buf, export))
+		env_override(arr[i], env);
+		if (export_override(arr[i], export) == 1)
 		{
-			free(buf);
+			i++;
 			continue ;
 		}
-		if (ft_strchr(buf, '='))
-		{
-			node = ft_lstnew(buf);
-			ft_lstadd_back(env, node);
-		}
-		node = ft_lstnew(export_str(buf));
+		node = ft_lstnew(export_str(arr[i]));
 		ft_lstadd_back(export, node);
+		i++;
 	}
 }
