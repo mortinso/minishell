@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 15:29:23 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:48:51 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	echo_flag(char *str)
 	return (0);
 }
 
-int	echo(char **cmd_flags) //g_exit > 0 if there's an error somehow
+int	ft_echo(char **cmd_flags) //g_exit > 0 if there's an error somehow
 {
 	int		j;
 	int		cmds;

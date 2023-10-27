@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/25 14:50:23 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:08:20 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,19 @@
 //libft
 # include "../libft/src/libft.h"
 
+//gnl
+#include "../gnl/gnl.h"
+
 //readline, rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/readline.h>
 # include <readline/history.h>
 
 //signal
 # include <signal.h>
+
+# include <termios.h>
+# include <term.h>
+# include <curses.h>
 
 extern int	g_exit;
 
@@ -74,7 +81,7 @@ typedef struct s_minishell
 void					cd(t_minishell *ms, char **path);
 
 // echo.c
-int						echo(char **cmd_flags);
+int						ft_echo(char **cmd_flags);
 
 // pwd.c
 void					pwd(void);
@@ -138,7 +145,7 @@ int						meta_char(char c);
 void					exec(t_minishell *ms, char **cmd_arr);
 int						is_exec(char *cmd, char **paths);
 char					**special_path(const char *cmd);
-char					**get_paths(t_list **env);
+char					**get_paths(t_list **env, char *cmd);
 char					*get_cmd_path(char **paths, char *cmd);
 
 // exec_built_ins.c
@@ -152,7 +159,7 @@ void					redirect_in(t_list *in);
 void					redirect(t_content *cmd, char **main_arr, int pos);
 
 // heredoc.c
-void					heredoc(char *limiter);
+char					*heredoc(t_minishell *ms, char *limiter, int here_num);
 
 // run.c
 void					run(t_minishell *ms);
@@ -169,6 +176,7 @@ int						cmd_count(char **arr);
 
 // content.c
 t_list					*redir_lst(char **arr, int index, char *limiter);
+t_list					*hdoc_lst(t_minishell *ms, char **arr, int index);
 char					**cmd_with_flags(t_minishell *ms, char **arr, int pos);
 
 // init.c
@@ -197,6 +205,7 @@ void					list_swap(t_list *list);
 // str_utl.c
 int						strlen_chr(char *str, char c);
 int						strcmp_chr(char *s1, char *s2, char c);
+char					*str_front_trim(char *str, char *trim);
 int						strcmp_nochr(char *s1, char *s2, char c);
 
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++

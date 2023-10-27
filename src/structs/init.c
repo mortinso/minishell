@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 17:59:38 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:05:25 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_content	*content_init(t_minishell *ms, int cmd_index)
 	content->input = redir_lst(ms->main_arr, cmd_index, "<");
 	content->output = redir_lst(ms->main_arr, cmd_index, ">");
 	content->append = redir_lst(ms->main_arr, cmd_index, ">>");
-	content->heredoc = redir_lst(ms->main_arr, cmd_index, "<<");
+	content->heredoc = hdoc_lst(ms, ms->main_arr, cmd_index);
 	content->cmd_flags = cmd_with_flags(ms, ms->main_arr, cmd_index);
 	return (content);
 }

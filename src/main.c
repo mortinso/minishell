@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 18:52:57 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/25 15:34:17 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,6 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	exit (g_exit);
 }
-/*	ERRORS:
-	- `exit 2 | exit 3` should change exit status
-*/
-
-/*
-	Need to figure out how we're actually gonna do heredoc
-*/
 
 // `>output>>append echo 1 2 3 <input<<heredoc | <in<<here ls -l >out>>app`
 

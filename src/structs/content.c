@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   content.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:59:23 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/12 17:20:53 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:19:45 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+t_list	*hdoc_lst(t_minishell *ms, char **arr, int index)
+{
+	char	*file;
+	t_list	*node;
+	t_list	*hdoc;
+
+	hdoc = NULL;
+	while (arr[index] && ft_strcmp(arr[index], "|") != 0)
+	{
+		if (ft_strcmp(arr[index], "<<") == 0)
+		{
+			file = heredoc(ms, arr[index + 1], index);
+			node = ft_lstnew(file);
+			if (!node)
+			{
+				ft_lstclear(&hdoc, free);
+				return (NULL);
+			}
+			ft_lstadd_back(&hdoc, node);
+			index += 2;
+		}
+		else
+			index++;
+	}
+	list_print(&hdoc);
+	return (hdoc);
+}
 
 t_list	*redir_lst(char **arr, int index, char *limiter)
 {

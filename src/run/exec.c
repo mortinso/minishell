@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/24 18:49:53 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:26:00 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,14 @@ void	exec(t_minishell *ms, char **cmd_arr)
 	char	*cmd_path;
 	char	**env;
 
+	if (!cmd_arr || !cmd_arr[0])
+		free_ms(ms);
 	if (is_built_in(cmd_arr[0]))
 	{
 		built_ins(ms, cmd_arr, 0);
 		free_ms(ms);
 	}
-	if (ft_strncmp(cmd_arr[0], "../", 3) == 0 || ft_strncmp(cmd_arr[0], "./", 2 \
-		) == 0 || cmd_arr[0][0] == '/')
-		paths = special_path(cmd_arr[0]);
-	else
-		paths = get_paths(ms->env);
+	paths = get_paths(ms->env, cmd_arr[0]);
 	if (is_exec(cmd_arr[0], paths) == 0)
 		free_ms(ms);
 	cmd_path = get_cmd_path(paths, cmd_arr[0]);
@@ -95,13 +93,16 @@ char	**special_path(const char *cmd)
 	return (paths);
 }
 
-char	**get_paths(t_list **env)
+char	**get_paths(t_list **env, char *cmd)
 {
 	t_list	*tmp;
 	char	**paths;
 	char	**path_dir;
 	int		i;
 
+	if (ft_strncmp(cmd, "../", 3) == 0 || ft_strncmp(cmd, "./", 2 ) == 0 \
+		|| cmd[0] == '/')
+		return (special_path(cmd));
 	tmp = *env;
 	while (tmp && strncmp(tmp->data, "PATH", 4) != 0)
 		tmp = tmp->next;
