@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:53:12 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/27 16:22:10 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 17:15:13 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	free_array(char **arr)
 	i = 0;
 	if (!arr)
 		return (1);
-	while (arr[i] && i < arr_size(arr))
+	while (arr[i])
 		free(arr[i++]);
 	if (arr)
 		free(arr);
