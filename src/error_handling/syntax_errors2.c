@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_errors2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 17:05:56 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/12 17:15:20 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/19 11:51:29 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+int	skip_quotes(char *str, int i);
 
 // Checks for unclosed quote marks
 int	quote_error(char *str)
@@ -32,7 +34,8 @@ int	quote_error(char *str)
 				return (1);
 			}
 		}
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (0);
 }

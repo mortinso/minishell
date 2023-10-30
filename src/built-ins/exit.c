@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:29:16 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/24 15:18:47 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/26 15:45:35 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ int	exit_format_error(char *arg)
 		else if (arg[i] && !n && (arg[i] == '-' || arg[i] == '+'))
 			n = 1;
 		else if (arg[i] && arg[i] != quotes && !ft_isdigit(arg[i]))
-		{
-			quotes = 0;
 			return (1);
-		}
 		else if (quotes && arg[i] && arg[i] == quotes)
 			quotes = 0;
 		i++;
@@ -64,22 +61,22 @@ int	exit_format_error(char *arg)
 	return (0);
 }
 
-void	exit_status(char **args)
+int	other_exit_status(char *arg)
 {
-	int	neg;
+	int	num;
 
-	neg = 0;
-	if (arr_size(args) > 2)
-		g_exit = 1;
-	else if (arr_size(args) == 2 && args[1] && args[1][0])
+	num = ft_atoi(arg);
+	if (num > 0)
 	{
-		if (ft_strchr(args[1], '-'))
-			neg = 1;
-		if (exit_format_error(args[1]) || exit_atoull(args[1]) > \
-			(unsigned long long)(LLONG_MAX + neg))
-			g_exit = 2;
-		else if (0 <= ft_atoi(args[1]) && exit_atoull(args[1]) <= 255)
-			g_exit = (int)exit_atoull(args[1]);
+		while (num > 256)
+			num -= 256;
+		return (num);
+	}
+	else
+	{
+		while (num < 0)
+			num += 256;
+		return (num);
 	}
 }
 
@@ -115,6 +112,8 @@ void	ft_exit(t_minishell *ms, char **args)
 		}
 		else if (0 <= ft_atoi(args[1]) && exit_atoull(args[1]) <= 255)
 			g_exit = (int)exit_atoull(args[1]);
+		else
+			g_exit = other_exit_status(args[1]);
 	}
 	free_ms(ms);
 }

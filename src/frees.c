@@ -33,6 +33,8 @@ int	free_array(char **arr)
 	int	i;
 
 	i = 0;
+	if (!arr)
+		return (1);
 	while (arr[i] && i < arr_size(arr))
 		free(arr[i++]);
 	if (arr)

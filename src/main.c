@@ -45,9 +45,3 @@ int	main(int ac, char **av, char **envp)
 }
 
 // `>output>>append echo 1 2 3 <input<<heredoc | <in<<here ls -l >out>>app`
-
-/*	To do:
-	- `export VAR` should create an environment variable VAR when there isn't
-		already one
-	- Figure out where/how we are gonna substitute ($VAR) by it's actual value
- */

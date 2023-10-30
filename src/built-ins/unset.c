@@ -52,7 +52,8 @@ void	unset_exp(t_list **exp, char *str)
 	}
 }
 
-void	unset(t_list **env, t_list **exp, char **arr) //g_exit > 0 if a variable couldnt be unset (idk how?????)
+//g_exit > 0 if a variable couldnt be unset (idk how?????)
+void	unset(t_list **env, t_list **exp, char **arr)
 {
 	int		i;
 	int		size;

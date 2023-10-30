@@ -52,11 +52,6 @@ void	list_remove(t_list **list, int pos)
 
 	i = 0;
 	tmp = *list;
-	if (pos == 0)
-	{
-		(*list) = (*list)->next;
-		return ;
-	}
 	while (i < pos - 1)
 	{
 		tmp = tmp->next;

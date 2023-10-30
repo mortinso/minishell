@@ -43,7 +43,7 @@ void	env_override(char *str, t_list **env)
 	{
 		if (!ft_strchr(str, '='))
 			break ;
-		if (strcmp_chr(tmp->data, str, '=') == 0)
+		if (strcmp_chr((char *)tmp->data, str, '=') == 0)
 		{
 			free(tmp->data);
 			tmp->data = ft_strdup(str);

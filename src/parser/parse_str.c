@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 18:53:16 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/26 15:46:41 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,6 @@ int	str_plain(char *str, int i)
 	return (i);
 }
 
-//	Need to figure out how to stop the whole proccess
-//	Need a separate function to check if there are unclosed quote marks
-/*
-	Error:
-	-Unclosed quotes: Should give syntax error, stop the process and change
-		exit status
-*/
 int	str_quotes(char *str, char c, int i)
 {
 	if (str[i] && str[i] == c)
@@ -90,8 +83,7 @@ int	str_others(char *str, int i)
 	Return 1 if space or tab;
 	Return 2 if any other meta character;
 	Return 3 if quotation mark;
-	Return 4 if dollar sign; ---> currently only used to distinguish between '$'
-	and regular chars in other functions
+	Return 4 if dollar sign;
 */
 int	meta_char(char c)
 {

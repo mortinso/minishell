@@ -71,7 +71,10 @@ void	var_init(t_minishell *ms)
 	ms->fdin_buf = dup(STDIN_FILENO);
 	ms->fdout_buf = dup(STDOUT_FILENO);
 	ms->main_arr = split_main(ms, ms->str);
-	env_var(ms->env, ms->main_arr);
 	ms->cmd_count = cmd_count(ms->main_arr);
+	env_var(ms, ms->env, ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
+	//arr_print("MAIN ARRAY:", ms->main_arr);
+	//cmdlist_print(&ms->cmdlist);
+
 }

@@ -79,11 +79,12 @@ char	**cmd_with_flags(t_minishell *ms, char **arr, int pos)
 	i = 0;
 	args = cmd_args(arr, pos);
 	buf = malloc(sizeof(char *) * (args + 1));
-	if (!buf)
+	if (!buf)	
 		malloc_error(ms);
 	while (i < args && arr[pos])
 	{
-		if (arr[pos][0] == '<' || arr[pos][0] == '>')
+		if (ft_strcmp(arr[pos], ">") == 0 || ft_strcmp(arr[pos], ">>") == 0\
+			|| ft_strcmp(arr[pos], "<") == 0 || ft_strcmp(arr[pos], "<<") == 0)
 			pos += 2;
 		else if (ft_strcmp(arr[pos], "|") == 0)
 			break ;

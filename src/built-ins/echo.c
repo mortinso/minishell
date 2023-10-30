@@ -6,19 +6,22 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/18 17:48:51 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:45:18 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+//check if there is an echo flag
+//Returns 1 if yes, 0 if no
 int	echo_flag(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (str[i++] != '-')
+	if (str[i] != '-')
 		return (1);
+	i++;
 	while (str[i] && str[i] == 'n')
 		i++;
 	if (str[i])
@@ -26,7 +29,25 @@ int	echo_flag(char *str)
 	return (0);
 }
 
-int	ft_echo(char **cmd_flags) //g_exit > 0 if there's an error somehow
+void	echo_print(char **cmd_flags, int pos)
+{
+	int	i;
+
+	while (cmd_flags && pos < arr_size(cmd_flags))
+	{
+		i = 0;
+		while (i < (int)ft_strlen(cmd_flags[pos]) && cmd_flags[pos][i])
+		{
+			if (cmd_flags[pos][i])
+				printf("%c", cmd_flags[pos][i++]);
+		}
+		pos++;
+		if (cmd_flags && pos != arr_size(cmd_flags))
+			printf(" ");
+	}
+}
+
+int	ft_echo(char **cmd_flags)
 {
 	int		j;
 	int		cmds;
@@ -34,22 +55,17 @@ int	ft_echo(char **cmd_flags) //g_exit > 0 if there's an error somehow
 
 	j = 1;
 	n_flag = 0;
-	cmds = cmd_args(cmd_flags, 0);
-	if (cmd_flags && echo_flag(cmd_flags[1]) == 0)
+	cmds = arr_size(cmd_flags);
+	if (cmd_flags[1] && echo_flag(cmd_flags[1]) == 0)
 	{
 		n_flag = 1;
 		j++;
 	}
+	echo_print(cmd_flags, j);
+	g_exit = 0;
 	if (cmds == 1)
 		return (printf("\n"));
-	while (cmd_flags && j < arr_size(cmd_flags))
-	{
-		printf("%s", cmd_flags[j++]);
-		if (cmd_flags && j != arr_size(cmd_flags))
-			printf(" ");
-	}
 	if (!n_flag)
 		printf("\n");
-	g_exit = 0;
 	return (0);
 }
