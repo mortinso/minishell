@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 18:57:45 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:39:06 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,18 @@ t_list	**export_init(t_list **env)
 }
 
 //Checks if export arguments are valid
-int	export_error(char **arr)
+int	export_error(char *str)
 {
 	int	i;
-	int	j;
-	int	size;
 
-	j = 0;
-	size = arr_size(arr);
-	while (j < size)
+	i = 0;
+	if (ft_isdigit(str[0]) || str[0] == '=')
+		return (export_error_msg(str));
+	while (i < (int)ft_strlen(str) && str[i] != '=')
 	{
-		i = 0;
-		if (ft_isdigit(arr[j][0]) || arr[j][0] == '=')
-			return (export_error_msg(arr[j]));
-		while (i < (int)ft_strlen(arr[j]) && arr[j][i] != '=')
-		{
-			if (!ft_isalnum(arr[j][i]) && arr[j][i] != '_')
-				return (export_error_msg(arr[j]));
-			i++;
-		}
-		j++;
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (export_error_msg(str));
+		i++;
 	}
 	return (0);
 }
@@ -122,6 +114,11 @@ void	export(char **arr, t_list **export, t_list **env)
 	i = 1;
 	while (i < arr_size(arr))
 	{
+		if (export_error(arr[i]))
+		{
+			i++;
+			continue ;
+		}
 		env_override(arr[i], env);
 		if (export_override(arr[i], export) == 1)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_built_ins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 16:55:30 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 14:28:17 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:35:26 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	exp_built_in(t_minishell *ms, char **cmd_flags)
 	if (ft_strcmp(cmd_flags[0], "export") == 0)
 	{
 		list_sort(ms->exp);
-		if (export_error(cmd_flags))
-			exit (1);
 		if (arr_size(cmd_flags) > 1)
 			export(cmd_flags, ms->exp, ms->env);
 		else
