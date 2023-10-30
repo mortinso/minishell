@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 20:32:39 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:54:49 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void					fork_error(t_minishell *ms);
 
 //errors2.c
 int						export_error_msg(char *error);
+void					heredoc_eof(char *limiter);
 
 // syntax_errors.c
 int						token_message(char token);

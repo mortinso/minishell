@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 18:45:31 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:55:13 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ void	heredoc_child(t_minishell *ms, char *file, char *limiter)
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (fd < 0)
 		open_error(file);
-	write(STDOUT_FILENO, "> ", 2);
-	line = get_next_line(STDIN_FILENO);
-	while (line)
+	while (1)
 	{
-		if (strcmp_nochr(limiter, line, '\n') == 0)
+		write(STDOUT_FILENO, "> ", 2);
+		line = get_next_line(STDIN_FILENO);
+		if (line == NULL || !line[0])
+			heredoc_eof(limiter);
+		if (line == NULL || !line[0] || strcmp_nochr(limiter, line, '\n') == 0)
 			break ;
 		ft_putstr_fd(line, fd);
 		free(line);
-		write(STDOUT_FILENO, "> ", 2);
-		line = get_next_line(STDIN_FILENO);
 	}
 	close(fd);
 	free(line);
