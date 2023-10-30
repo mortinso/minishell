@@ -14,10 +14,10 @@
 
 int	syntax_error(t_minishell *ms)
 {
-	if (quote_error(ms->str) || pipe_error(ms->str) || begin_error(ms->str) \
-		|| double_redir_error(ms->str) || dollar_error(ms->str) \
-		|| sucession_error(ms->str) || redir_error(ms->str) \
-		|| end_of_string_error(ms->str))
+	if (token_error(ms->str) || quote_error(ms->str) || pipe_error(ms->str) \
+		|| begin_error(ms->str) || double_redir_error(ms->str) \
+		|| dollar_error(ms->str) || sucession_error(ms->str) \
+		|| redir_error(ms->str) || end_of_string_error(ms->str))
 	{
 		free(ms->prompt);
 		free(ms->str);

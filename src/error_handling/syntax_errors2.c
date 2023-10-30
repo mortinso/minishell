@@ -86,3 +86,24 @@ int	dollar_error(char *str)
 	}
 	return (0);
 }
+
+int	token_error(char *str)
+{
+	int		i;
+	char	c;
+
+	i = 0;
+	c = 0;
+	while (i < (int)ft_strlen(str))
+	{
+		if (meta_char(str[i]) == 3)
+			i += skip_quotes(str, i);
+		if (i < (int)ft_strlen(str) && (str[i] == '&' || str[i] == '('
+			|| str[i] == ')' || str[i] == ';'))
+			c = str[i];
+		i++;
+	}
+	if (c != 0)
+		return (token_message(c));
+	return (0);
+}

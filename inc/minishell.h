@@ -24,7 +24,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-# include <sys/ioctl.h>
 
 //libft
 # include "../libft/src/libft.h"
@@ -70,7 +69,6 @@ typedef struct s_minishell
 	char			*prompt;
 	int				fdin_buf;
 	int				fdout_buf;
-	struct sigaction	og_sigint;
 	int				cmd_in_fd;
 	int				cmd_count;
 	char			**main_arr;
@@ -124,6 +122,7 @@ int						sucession_error(char *str);
 int						quote_error(char *str);
 int						pipe_error(char *str);
 int						dollar_error(char *str);
+int						token_error(char *str);
 
 //++++++++++++++++ parser/[.........] +++++++++++++++++++++++++++++++++++++++++
 // parse_counter.c
