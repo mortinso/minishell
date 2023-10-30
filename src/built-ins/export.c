@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/26 17:41:16 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:16:15 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,9 @@ int	export_override(char *str, t_list **export)
 void	export(char **arr, t_list **export, t_list **env)
 {
 	int		i;
-	char	*buf;
 	t_list	*node;
 
 	i = 1;
-	buf = NULL;
 	while (i < arr_size(arr))
 	{
 		env_override(arr[i], env);

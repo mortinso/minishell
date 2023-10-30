@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:59:23 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/27 16:19:45 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:45:17 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_list	*hdoc_lst(t_minishell *ms, char **arr, int index)
 		else
 			index++;
 	}
-	list_print(&hdoc);
 	return (hdoc);
 }
 

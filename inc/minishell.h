@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/27 16:08:20 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:49:51 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <sys/ioctl.h>
 
 //libft
 # include "../libft/src/libft.h"
@@ -69,6 +70,7 @@ typedef struct s_minishell
 	char			*prompt;
 	int				fdin_buf;
 	int				fdout_buf;
+	struct sigaction	og_sigint;
 	int				cmd_in_fd;
 	int				cmd_count;
 	char			**main_arr;
@@ -233,7 +235,7 @@ char					*set_prompt(t_minishell *ms);
 
 // signals.c
 void					signal_init(void);
-void					signal_interrupt(int signum);
+void					signal_process_interrupt(int signum);
 void					signal_exit(t_minishell *ms);
 
 #endif

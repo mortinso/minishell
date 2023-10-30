@@ -20,12 +20,12 @@ void	cd_home(t_minishell *ms)
 	if (!home)
 	{
 		write(2, "Minishell: cd: HOME is undefined\n", 29);
-		g_exit = 1;
+		exit (1);
 	}
 	else if (chdir(home) != 0)
 	{
 		perror("Minishell: cd: HOME");
-		g_exit = 1;
+		exit (1);
 	}
 	else
 		g_exit = 0;
