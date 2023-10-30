@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/27 16:05:25 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:47:18 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,4 @@ void	var_init(t_minishell *ms)
 	ms->cmd_count = cmd_count(ms->main_arr);
 	env_var(ms, ms->env, ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
-	//arr_print("MAIN ARRAY:", ms->main_arr);
-	//cmdlist_print(&ms->cmdlist);
-
 }

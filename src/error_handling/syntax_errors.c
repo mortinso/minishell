@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:44:37 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/22 16:54:54 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:30:08 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,20 @@
 
 int	skip_quotes(char *str, int i);
 
+int	token_message(char token)
+{
+	int	fd;
+
+	fd = dup(STDOUT_FILENO);
+	dup2(STDERR_FILENO, STDOUT_FILENO);
+	printf("MiniShell: syntax error near unexpected token '%c'\n", token);
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
+	return (1);
+}
+
 //Checks for metachar at the start of str
-int	begin_error(char *str)
+int	start_syntax(char *str)
 {
 	int	i;
 
@@ -28,7 +40,7 @@ int	begin_error(char *str)
 }
 
 //Checks for metachar at the end of str
-int	end_of_string_error(char *str)
+int	end_syntax(char *str)
 {
 	int	pos;
 
@@ -47,8 +59,8 @@ int	end_of_string_error(char *str)
 	return (0);
 }
 
-// Checks for ><
-int	redir_error(char *str)
+// Checks for >< and <|
+int	redir_syntax(char *str)
 {
 	int	i;
 	int	size;
@@ -72,7 +84,7 @@ int	redir_error(char *str)
 }
 
 //Checks for << | and for >> |
-int	double_redir_error(char *str)
+int	double_redir_syntax(char *str)
 {
 	char	redir;
 	int		i;
@@ -95,37 +107,6 @@ int	double_redir_error(char *str)
 				return (token_message('|'));
 		}
 		i++;
-	}
-	return (0);
-}
-
-//Checks if there are any >, < or | in sucession (divided by whitespace)
-//Example: hello > > world; hello > | world: hello > < world
-int	sucession_error(char *str)
-{
-	int	i;
-	int	size;
-
-	i = 0;
-	size = ft_strlen(str) - 1;
-	while (i < size)
-	{
-		while (str[i] && str[i] != '<' && str[i] != '>' \
-			&& meta_char(str[i]) != 3)
-			i++;
-		if (str[i] && i < size && meta_char(str[i]) == 3)
-			i = skip_quotes(str, i);
-		if (str[i] && (str[i] == '<' || str[i] == '>'))
-		{
-			i++;
-			if (str[i] && i < size && meta_char(str[i]) == 1)
-			{
-				while (str[i] && i < size && meta_char(str[i]) == 1)
-					i++;
-				if (str[i] && meta_char(str[i]) == 2)
-					return (token_message(str[i]));
-			}
-		}
 	}
 	return (0);
 }

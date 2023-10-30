@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replacer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:55:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/27 11:54:18 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 19:18:58 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,6 @@
 
 char	**var_split(char *str);
 char	*var_iter(t_list **env, char *var);
-
-char	*dollar_cond(char *buf)
-{
-	char	*buf1;
-	char	*res;
-
-	res = NULL;
-	buf1 = ft_itoa(g_exit);
-	res = ft_strjoin(buf, buf1);
-	free(buf1);
-	return (res);
-}
 
 char	*replace_dollar(char *str, char *buf, t_list **env, int flag)
 {

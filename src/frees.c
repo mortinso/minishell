@@ -72,23 +72,23 @@ void	free_cmd_list(t_cmdlist *cmdlist)
 		if (tmp->content->append)
 			free_list(&tmp->content->append);
 		if (tmp->content->heredoc)
-			free_list_malloc(&tmp->content->heredoc);
+			free_list_and_data(&tmp->content->heredoc);
 		free(tmp->content);
 		free(tmp);
 	}
 }
 
-void	free_list_malloc(t_list **exp)
+void	free_list_malloc(t_list **list)
 {
 	t_list	*tmp;
 
-	while (*exp)
+	while (*list)
 	{
-		tmp = *exp;
-		*exp = (*exp)->next;
+		tmp = *list;
+		*list = (*list)->next;
 		free(tmp->data);
 		free(tmp);
 	}
-	if (*exp)
-		free(exp);
+	if (list)
+		free(list);
 }

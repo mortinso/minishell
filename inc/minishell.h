@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 14:49:51 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:00:52 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include "../libft/src/libft.h"
 
 //gnl
-#include "../gnl/gnl.h"
+# include "../gnl/gnl.h"
 
 //readline, rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/readline.h>
@@ -108,21 +108,27 @@ void					unset(t_list **env, t_list **exp, char **arr);
 //++++++++++++++++ error_handling/[.....] +++++++++++++++++++++++++++++++++++++
 // errors.c
 int						syntax_error(t_minishell *ms);
-int						token_message(char token);
 void					malloc_error(t_minishell *ms);
+void					open_error(char	*filename);
+void					pipe_error(t_minishell *ms);
+void					fork_error(t_minishell *ms);
+
+//errors2.c
+int						export_error_msg(char *error);
 
 // syntax_errors.c
-int						begin_error(char *str);
-int						end_of_string_error(char *str);
-int						redir_error(char *str);
-int						double_redir_error(char *str);
-int						sucession_error(char *str);
+int						token_message(char token);
+int						start_syntax(char *str);
+int						end_syntax(char *str);
+int						redir_syntax(char *str);
+int						double_redir_syntax(char *str);
 
 // syntax_errors2.c
-int						quote_error(char *str);
-int						pipe_error(char *str);
-int						dollar_error(char *str);
-int						token_error(char *str);
+int						sucession_syntax(char *str);
+int						quote_syntax(char *str);
+int						pipe_syntax(char *str);
+int						dollar_syntax(char *str);
+int						token_syntax(char *str);
 
 //++++++++++++++++ parser/[.........] +++++++++++++++++++++++++++++++++++++++++
 // parse_counter.c
@@ -141,9 +147,13 @@ int						str_others(char *str, int i);
 int						meta_char(char c);
 
 //++++++++++++++++ run/[.....] +++++++++++++++++++++++++++++++++++++++++++++++
+// cmd_validator.c
+int						is_exec(char *cmd, char **paths);
+int						is_usable(char	*cmd, char *cmd_path, \
+	char **paths_array);
+
 // exec.c
 void					exec(t_minishell *ms, char **cmd_arr);
-int						is_exec(char *cmd, char **paths);
 char					**special_path(const char *cmd);
 char					**get_paths(t_list **env, char *cmd);
 char					*get_cmd_path(char **paths, char *cmd);
@@ -169,17 +179,21 @@ void					parent(t_minishell *ms, int *pipe_fd, int cmds_run, \
 	int pos);
 
 //++++++++++++++++ replacer/[.........] +++++++++++++++++++++++++++++++++++++++
-// replacer_utl.c
+// replacer_split2.c
 char					*replace_str(char *str, t_list **env);
-char					*replace_single(char *str, char *buf, t_list **env, int flag);
+char					*replace_single(char *str, char *buf, t_list **env, \
+	int flag);
+
+// replacer_utl.c
+char					*dollar_cond(char *buf);
 char					*var_iter(t_list **env, char *var);
 char					*var_str(t_list *env, char *var);
 
 // replacer.c
-char					*replace_cond(char *str, char *buf1, t_list **env, int flag);
+char					*replace_cond(char *str, char *buf1, t_list **env, \
+	int flag);
 char					*replacer(char *str, t_list **env, int flag);
 void					env_var(t_minishell *ms, t_list **env, char **arr);
-
 
 //++++++++++++++++ structs/[.....] ++++++++++++++++++++++++++++++++++++++++++++
 // cmd_utils.c
@@ -218,8 +232,9 @@ char					*str_front_trim(char *str, char *trim);
 int						strcmp_nochr(char *s1, char *s2, char c);
 
 // quote_utl.c
-char					*add_quotes(char *str, char c);
+int						skip_quotes(char *str, int pos);
 char					*remove_quotes(char *str, char c);
+char					*add_quotes(char *str, char c);
 int						closed_quotes(char *str, char c);
 
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -228,6 +243,9 @@ void					free_ms(t_minishell *ms);
 int						free_array(char **arr);
 void					free_cmd_list(t_cmdlist *cmdlist);
 void					free_list_malloc(t_list **exp);
+
+// frees2.c
+void					free_list_and_data(t_list **list);
 
 // prompt.c
 char					*set_prompt(t_minishell *ms);

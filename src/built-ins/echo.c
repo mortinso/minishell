@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/26 12:45:18 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:27:13 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	ft_echo(char **cmd_flags)
 
 	j = 1;
 	n_flag = 0;
+	g_exit = 0;
 	cmds = arr_size(cmd_flags);
 	if (cmd_flags[1] && echo_flag(cmd_flags[1]) == 0)
 	{
@@ -62,7 +63,6 @@ int	ft_echo(char **cmd_flags)
 		j++;
 	}
 	echo_print(cmd_flags, j);
-	g_exit = 0;
 	if (cmds == 1)
 		return (printf("\n"));
 	if (!n_flag)

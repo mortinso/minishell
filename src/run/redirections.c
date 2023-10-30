@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:36:41 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 16:17:02 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:29:11 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,12 @@ void	redirect_out(t_list *out, int append)
 		else
 			fd = open(out->data, O_CREAT | O_RDWR | O_APPEND, 0664);
 		if (fd < 0)
+			open_error(out->data);
+		else
 		{
-			write(2, "Minishell: ", 11);
-			perror(out->data);
-			g_exit = 1;
-			exit (g_exit); ///aasas
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
 		}
-		dup2(fd, STDOUT_FILENO);
-		close(fd);
 		out = out->next;
 	}
 }
@@ -51,14 +49,12 @@ void	redirect_in(t_list *in)
 	{
 		fd = open(in->data, O_RDONLY);
 		if (fd < 0)
+			open_error(in->data);
+		else
 		{
-			write(2, "Minishell: ", 11);
-			perror(in->data);
-			g_exit = 1;
-			exit (g_exit); //open error;
+			dup2(fd, STDIN_FILENO);
+			close(fd);
 		}
-		dup2(fd, STDIN_FILENO);
-		close(fd);
 		in = in->next;
 	}
 }

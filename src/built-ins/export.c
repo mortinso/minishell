@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 16:16:15 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:57:45 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,11 @@ int	export_error(char **arr)
 	{
 		i = 0;
 		if (ft_isdigit(arr[j][0]) || arr[j][0] == '=')
-		{
-			g_exit = 1;
-			write(STDERR_FILENO, "Minishell: export: '", 20);
-			ft_putstr_fd(arr[j], STDERR_FILENO);
-			write(STDERR_FILENO, "': not a valid identifier\n", 26);
-			return (1);
-		}
+			return (export_error_msg(arr[j]));
 		while (i < (int)ft_strlen(arr[j]) && arr[j][i] != '=')
 		{
 			if (!ft_isalnum(arr[j][i]) && arr[j][i] != '_')
-			{
-				g_exit = 1;
-				write(STDERR_FILENO, "Minishell: export: '", 20);
-				ft_putstr_fd(arr[j], STDERR_FILENO);
-				write(STDERR_FILENO, "': not a valid identifier\n", 26);
-				return (1);
-			}
+				return (export_error_msg(arr[j]));
 			i++;
 		}
 		j++;

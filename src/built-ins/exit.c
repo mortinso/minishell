@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:29:16 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/26 15:45:35 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:53:39 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,9 @@ void	ft_exit(t_minishell *ms, char **args)
 	}
 	else if (arr_size(args) == 2 && args[1] && args[1][0])
 	{
-		if (ft_strchr(args[1], '-'))
-			neg = 1;
-		if (exit_format_error(args[1]) || exit_atoull(args[1]) > \
-			(unsigned long long)(LLONG_MAX + neg))
+		if (exit_format_error(args[1]) || (ft_strchr(args[1], '-') \
+			&& exit_atoull(args[1]) > (unsigned long long)(LLONG_MAX) + 1) \
+			|| exit_atoull(args[1]) > (unsigned long long)(LLONG_MAX))
 		{
 			write(STDERR_FILENO, "Minishell: exit: ", 17);
 			ft_putstr_fd(args[1], STDERR_FILENO);
