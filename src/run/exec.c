@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/31 14:01:37 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:29:53 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@ void	exec(t_minishell *ms, char **cmd_arr)
 	char	**env;
 
 	if (!cmd_arr || !cmd_arr[0] || !cmd_arr[0][0])
-		free_ms(ms);
+		ft_putstr_fd("Minishell: '': command not found\n", STDERR_FILENO);
 	if (is_built_in(cmd_arr[0]))
-	{
 		built_ins(ms, cmd_arr);
+	if (!cmd_arr || !cmd_arr[0] || !cmd_arr[0][0] || is_built_in(cmd_arr[0]))
 		free_ms(ms);
-	}
 	paths = get_paths(ms->env, cmd_arr[0]);
 	if (is_exec(cmd_arr[0], paths) == 0)
 		free_ms(ms);
