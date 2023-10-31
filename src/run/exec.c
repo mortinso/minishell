@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 20:11:28 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:01:37 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*get_cmd_path(char **paths, char *cmd)
 	int		i;
 
 	i = 0;
-	while (paths[i])
+	while (paths && paths[i])
 	{
 		buf1 = ft_strjoin(paths[i], "/");
 		buf2 = ft_strjoin(buf1, cmd);

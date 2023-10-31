@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:59:23 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 18:47:42 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/31 13:58:41 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,9 @@ char	**cmd_with_flags(t_minishell *ms, char **arr, int pos)
 		malloc_error(ms);
 	while (i < args)
 	{
-		if (arr[pos] && (ft_strcmp(arr[pos], ">") == 0 || ft_strcmp(arr[pos], ">>") == 0\
-			|| ft_strcmp(arr[pos], "<") == 0 || ft_strcmp(arr[pos], "<<") == 0))
+		if (arr[pos] && (ft_strcmp(arr[pos], ">") == 0 \
+			|| ft_strcmp(arr[pos], ">>") == 0 || ft_strcmp(arr[pos], "<") == 0 \
+			|| ft_strcmp(arr[pos], "<<") == 0))
 			pos += 2;
 		else if (ft_strcmp(arr[pos], "|") == 0)
 			break ;

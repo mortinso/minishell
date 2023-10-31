@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:09:33 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 19:11:24 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:01:51 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	is_exec(char *cmd, char **paths)
 	char	*buf2;
 
 	i = 0;
+	if (!paths)
+		return (1);
 	while (paths[i])
 	{
 		buf = ft_strjoin(paths[i++], "/");
