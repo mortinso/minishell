@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:08:39 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/13 17:04:05 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:43:05 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ void	cd_env(t_minishell *ms, char *old_pwd)
 void	cd(t_minishell *ms, char **path)
 {
 	char	old_pwd[PATH_MAX + 1];
-	int		i;
 
-	i = 0;
 	getcwd(old_pwd, sizeof(old_pwd));
 	if (path && arr_size(path) > 2)
 	{

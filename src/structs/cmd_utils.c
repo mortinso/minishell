@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/31 13:58:15 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:43:04 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,7 @@ void	cmdlist_print(t_cmdlist **cmdlist)
 	while (tmp)
 	{
 		printf("	NODE%i:\n", i);
-		printf("		CONTENT:\n");
-		arr_print("	Command with flags", tmp->content->cmd_flags);
-		printf("		Input:\n");
-		list_print(&tmp->content->input);
-		printf("		Output:\n");
-		list_print(&tmp->content->output);
-		printf("		HereDoc:\n");
-		list_print(&tmp->content->heredoc);
-		printf("		Append:\n");
-		list_print(&tmp->content->append);
+		arr_print("	Command with flags", tmp->cmd_args);
 		i++;
 		if (tmp->next)
 			tmp = tmp->next;

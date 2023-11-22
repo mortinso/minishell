@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 20:55:13 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:16:37 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	restore_stdin(void)
 
 	terminal_fd = open("/dev/tty", O_RDWR);
 	if (terminal_fd < 0)
-		open_error(NULL);
+		open_error(NULL, NULL, 1);
 	dup2(terminal_fd, STDIN_FILENO);
 	close(terminal_fd);
 }
@@ -42,7 +42,7 @@ void	heredoc_child(t_minishell *ms, char *file, char *limiter)
 	change_terminal();
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (fd < 0)
-		open_error(file);
+		open_error(ms, file, 1);
 	while (1)
 	{
 		write(STDOUT_FILENO, "> ", 2);

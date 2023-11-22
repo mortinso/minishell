@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:53:12 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 17:15:13 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:16:17 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	free_ms(t_minishell *ms)
 {
+	if (!ms)
+		exit(g_exit);
 	if (ms->str)
 		free(ms->str);
 	if (ms->prompt)
@@ -64,16 +66,7 @@ void	free_cmd_list(t_cmdlist *cmdlist)
 	{
 		tmp = head;
 		head = head->next;
-		free(tmp->content->cmd_flags);
-		if (tmp->content->input)
-			free_list(&tmp->content->input);
-		if (tmp->content->output)
-			free_list(&tmp->content->output);
-		if (tmp->content->append)
-			free_list(&tmp->content->append);
-		if (tmp->content->heredoc)
-			free_list_and_data(&tmp->content->heredoc);
-		free(tmp->content);
+		free(tmp->cmd_args);
 		free(tmp);
 	}
 }

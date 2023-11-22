@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 18:27:13 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:44:52 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,25 @@ int	echo_flag(char *str)
 	return (0);
 }
 
-void	echo_print(char **cmd_flags, int pos)
+void	echo_print(char **cmd_args, int pos)
 {
 	int	i;
 
-	while (cmd_flags && pos < arr_size(cmd_flags))
+	while (cmd_args && pos < arr_size(cmd_args))
 	{
 		i = 0;
-		while (i < (int)ft_strlen(cmd_flags[pos]) && cmd_flags[pos][i])
+		while (i < (int)ft_strlen(cmd_args[pos]) && cmd_args[pos][i])
 		{
-			if (cmd_flags[pos][i])
-				printf("%c", cmd_flags[pos][i++]);
+			if (cmd_args[pos][i])
+				printf("%c", cmd_args[pos][i++]);
 		}
 		pos++;
-		if (cmd_flags && pos != arr_size(cmd_flags))
+		if (cmd_args && pos != arr_size(cmd_args))
 			printf(" ");
 	}
 }
 
-int	ft_echo(char **cmd_flags)
+int	ft_echo(char **cmd_args)
 {
 	int		j;
 	int		cmds;
@@ -56,13 +56,13 @@ int	ft_echo(char **cmd_flags)
 	j = 1;
 	n_flag = 0;
 	g_exit = 0;
-	cmds = arr_size(cmd_flags);
-	if (cmd_flags[1] && echo_flag(cmd_flags[1]) == 0)
+	cmds = arr_size(cmd_args);
+	if (cmd_args[1] && echo_flag(cmd_args[1]) == 0)
 	{
 		n_flag = 1;
 		j++;
 	}
-	echo_print(cmd_flags, j);
+	echo_print(cmd_args, j);
 	if (cmds == 1)
 		return (printf("\n"));
 	if (!n_flag)

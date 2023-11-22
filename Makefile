@@ -5,7 +5,7 @@ CC = @cc
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm -rf
 
-SRC_MSH	=	frees.c frees2.c main.c prompt.c signals.c
+SRC_MSH	=	frees.c main.c prompt.c signals.c
 SRC_BLT	=	cd.c echo.c env.c exit.c export.c pwd.c unset.c
 SRC_ERR =	errors.c errors2.c syntax_errors.c syntax_errors2.c
 SRC_RUN =	exec_built_ins.c exec.c redirections.c heredoc.c run.c cmd_validator.c

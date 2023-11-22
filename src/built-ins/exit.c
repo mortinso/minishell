@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:29:16 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 18:53:39 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:43:22 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,6 @@ int	other_exit_status(char *arg)
 */
 void	ft_exit(t_minishell *ms, char **args)
 {
-	int		neg;
-
-	neg = 0;
 	if (arr_size(args) > 2)
 	{
 		write(STDERR_FILENO, "Minishell: exit: too many arguments\n", 36);

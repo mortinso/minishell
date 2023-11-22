@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 20:54:49 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:15:14 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,9 @@
 extern int	g_exit;
 
 //-----------------------------------STRUCT-------------------------------------
-typedef struct s_content
-{
-	t_list	*input;
-	t_list	*output;
-	t_list	*append;
-	t_list	*heredoc;
-	char	**cmd_flags;
-}	t_content;
-
 typedef struct s_cmdlist
 {
-	t_content			*content;
+	char				**cmd_args;
 	struct s_cmdlist	*next;
 }	t_cmdlist;
 
@@ -65,7 +56,6 @@ typedef struct s_minishell
 	char			*str;
 	t_list			**env;
 	t_list			**exp;
-	char			**paths;
 	char			*prompt;
 	int				fdin_buf;
 	int				fdout_buf;
@@ -81,7 +71,7 @@ typedef struct s_minishell
 void					cd(t_minishell *ms, char **path);
 
 // echo.c
-int						ft_echo(char **cmd_flags);
+int						ft_echo(char **cmd_args);
 
 // pwd.c
 void					pwd(void);
@@ -109,7 +99,7 @@ void					unset(t_list **env, t_list **exp, char **arr);
 // errors.c
 int						syntax_error(t_minishell *ms);
 void					malloc_error(t_minishell *ms);
-void					open_error(char	*filename);
+int						open_error(t_minishell *ms, char *filename, int child);
 void					pipe_error(t_minishell *ms);
 void					fork_error(t_minishell *ms);
 
@@ -161,13 +151,16 @@ char					*get_cmd_path(char **paths, char *cmd);
 
 // exec_built_ins.c
 int						is_built_in(char *str);
-void					built_ins(t_minishell *ms, char **cmd_flags);
+void					built_ins(t_minishell *ms, char **cmd_args);
 
 // redirections.c
 void					reset_fds(t_minishell *ms);
-void					redirect_out(t_list *out, int append);
-void					redirect_in(t_list *in);
-void					redirect(t_content *cmd, char **main_arr, int pos);
+int						redirect_in(t_minishell *ms, char *file, int heredoc, \
+	int child);
+int						redirect_out(t_minishell *ms, char *file, int append, \
+	int child);
+int						redirect(t_minishell *ms, char **main_arr, int pos, \
+	int child);
 
 // heredoc.c
 char					*heredoc(t_minishell *ms, char *limiter, int here_num);
@@ -203,8 +196,7 @@ int						cmd_args(char **arr, int pos);
 int						cmd_count(char **arr);
 
 // content.c
-t_list					*redir_lst(char **arr, int index, char *limiter);
-t_list					*hdoc_lst(t_minishell *ms, char **arr, int index);
+void					init_heredoc(t_minishell *ms, char **main_arr);
 char					**cmd_with_flags(t_minishell *ms, char **arr, int pos);
 
 // init.c
@@ -244,9 +236,6 @@ void					free_ms(t_minishell *ms);
 int						free_array(char **arr);
 void					free_cmd_list(t_cmdlist *cmdlist);
 void					free_list_malloc(t_list **exp);
-
-// frees2.c
-void					free_list_and_data(t_list **list);
 
 // prompt.c
 char					*set_prompt(t_minishell *ms);

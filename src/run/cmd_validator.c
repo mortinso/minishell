@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:09:33 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/31 14:01:51 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:15:08 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	is_usable(char	*cmd, char *cmd_path, char **paths_array)
 	{
 		ft_putstr_fd("Minishell: ", STDERR_FILENO);
 		ft_putstr_fd(cmd, STDERR_FILENO);
-		ft_putstr_fd(": Is a directory", STDERR_FILENO);
+		ft_putstr_fd(": Is a directory\n", STDERR_FILENO);
 		g_exit = 126;
 	}
 	else if (access(cmd_path, X_OK) == 0)

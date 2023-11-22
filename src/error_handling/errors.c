@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:57:08 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 20:01:12 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:16:01 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,18 @@ void	malloc_error(t_minishell *ms)
 	free_ms(ms);
 }
 
-void	open_error(char	*filename)
+int	open_error(t_minishell *ms, char *filename, int child)
 {
 	ft_putstr_fd("Minishell: ", STDERR_FILENO);
 	perror(filename);
-	exit (1);
+	if (child)
+	{
+		g_exit = 1;
+		free_ms(ms);
+	}
+	else
+		return (1);
+	return (0);
 }
 
 void	pipe_error(t_minishell *ms)

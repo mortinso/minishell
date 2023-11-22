@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 17:36:41 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 16:29:11 by mortins-         ###   ########.fr       */
+/*   Created: 2023/11/01 15:54:54 by mortins-          #+#    #+#             */
+/*   Updated: 2023/11/01 19:15:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,63 +20,62 @@ void	reset_fds(t_minishell *ms)
 	close(ms->fdin_buf);
 }
 
-void	redirect_out(t_list *out, int append)
+int	redirect_in(t_minishell *ms, char *file, int heredoc, int child)
 {
 	int	fd;
 
-	while (out)
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (open_error(ms, file, child));
+	else
 	{
-		if (append == 0)
-			fd = open(out->data, O_CREAT | O_RDWR | O_TRUNC, 0664);
-		else
-			fd = open(out->data, O_CREAT | O_RDWR | O_APPEND, 0664);
-		if (fd < 0)
-			open_error(out->data);
-		else
-		{
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-		}
-		out = out->next;
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+		if (heredoc)
+			unlink(file);
 	}
+	return (0);
 }
 
-void	redirect_in(t_list *in)
+int	redirect_out(t_minishell *ms, char *file, int append, int child)
 {
 	int	fd;
 
-	while (in)
+	if (!append)
+		fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0664);
+	else
+		fd = open(file, O_CREAT | O_RDWR | O_APPEND, 0664);
+	if (fd < 0)
+		return (open_error(ms, file, child));
+	else
 	{
-		fd = open(in->data, O_RDONLY);
-		if (fd < 0)
-			open_error(in->data);
-		else
-		{
-			dup2(fd, STDIN_FILENO);
-			close(fd);
-		}
-		in = in->next;
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
 	}
+	return (0);
 }
 
-void	redirect(t_content *cmd, char **main_arr, int pos)
+int	redirect(t_minishell *ms, char **main_arr, int pos, int child)
 {
-	int			tmp_pos;
-	t_content	*tmp_cmd;
+	int	index;
+	int	error;
 
-	tmp_cmd = cmd;
-	tmp_pos = pos;
-	while (main_arr[tmp_pos] && main_arr[tmp_pos][0] && ft_strcmp(main_arr[\
-		tmp_pos], "|") != 0)
+	index = pos;
+	error = 0;
+	while (main_arr[index] && main_arr[index][0] && ft_strcmp(main_arr[\
+		index], "|") != 0)
 	{
-		if (ft_strcmp(main_arr[tmp_pos], ">") == 0)
-			redirect_out(tmp_cmd->output, 0);
-		if (ft_strcmp(main_arr[tmp_pos], ">>") == 0)
-			redirect_out(tmp_cmd->append, 1);
-		if (ft_strcmp(main_arr[tmp_pos], "<") == 0)
-			redirect_in(tmp_cmd->input);
-		if (ft_strcmp(main_arr[tmp_pos], "<<") == 0)
-			redirect_in(tmp_cmd->heredoc);
-		tmp_pos++;
+		if (ft_strcmp(main_arr[index], "<") == 0)
+			error = redirect_in(ms, main_arr[index + 1], 0, child);
+		else if (ft_strcmp(main_arr[index], "<<") == 0)
+			error = redirect_in(ms, main_arr[index + 1], 1, child);
+		else if (ft_strcmp(main_arr[index], ">") == 0)
+			error = redirect_out(ms, main_arr[index + 1], 0, child);
+		else if (ft_strcmp(main_arr[index], ">>") == 0)
+			error = redirect_out(ms, main_arr[index + 1], 1, child);
+		index++;
+		if (error)
+			return (1);
 	}
+	return (0);
 }
