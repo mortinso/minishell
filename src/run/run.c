@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/01 19:17:30 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:24:58 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,21 @@ void	get_exit_status(t_minishell *ms, pid_t pid, int cmds_run)
 		== 1)
 	{
 		wait(&status);
+		reset_fds(ms);
 		return ;
 	}
 	while (cmds_run > 0)
 	{
 		wait(&status);
 		if (pid != -1 && WIFEXITED(status))
-			g_exit = WEXITSTATUS(status);
+			ms->exit = WEXITSTATUS(status);
+		if (pid != -1 && WIFSIGNALED(status))
+			g_sig = WTERMSIG(status);
+		else
+			g_sig = 0;
 		cmds_run--;
 	}
+	reset_fds(ms);
 }
 
 void	run(t_minishell *ms)
@@ -52,6 +58,7 @@ void	run(t_minishell *ms)
 	pos = 0;
 	if (!ms->cmdlist)
 		return ;
+	signal(SIGQUIT, signal_process_interrupt);
 	while (cmds_run < ms->cmd_count)
 	{
 		if (pipe(pipe_fd) < 0)
@@ -67,7 +74,6 @@ void	run(t_minishell *ms)
 		cmds_run++;
 	}
 	get_exit_status(ms, pid, cmds_run);
-	reset_fds(ms);
 }
 
 void	child(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
@@ -94,7 +100,7 @@ void	child(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 		close(pipe_fd[1]);
 	}
 	if (ms->cmd_count == 1 && is_built_in(cmd->cmd_args[0]))
-		exit(g_exit);
+		exit(ms->exit);
 	redirect(ms, ms->main_arr, pos, 1);
 	exec(ms, cmd->cmd_args);
 }

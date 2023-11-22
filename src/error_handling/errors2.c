@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   errors2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:54:52 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 20:57:38 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:24:05 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	export_error_msg(char *error)
+int	export_error_msg(t_minishell *ms, char *error)
 {
-	g_exit = 1;
+	ms->exit = 1;
 	ft_putstr_fd("Minishell: export: '", STDERR_FILENO);
 	ft_putstr_fd(error, STDERR_FILENO);
 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);

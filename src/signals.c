@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 16:08:59 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/01 17:11:05 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:34:24 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,15 @@ void	signal_interrupt(int signum)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_exit = 128 + SIGINT;
 	}
 }
 
 void	signal_process_interrupt(int signum)
 {
+	if (signum == SIGQUIT)
+		g_sig = SIGQUIT;
 	if (signum == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-	}
+		g_sig = SIGINT;
 }
 
 //	CTRL-D represents "No input".
@@ -55,4 +52,15 @@ void	signal_init(void)
 {
 	signal(SIGINT, signal_interrupt);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+void	post_process_signal(void)
+{
+	if (!g_sig)
+		return ;
+	if (g_sig == SIGQUIT)
+		ft_putstr_fd("Quit\n", STDERR_FILENO);
+	if (g_sig == SIGINT)
+		printf("\n");
+	g_sig = 0;
 }
