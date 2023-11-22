@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:44:37 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 16:30:08 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:03:06 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,13 @@ int	redir_syntax(char *str)
 		while (str[i] && str[i] != '>' && str[i] != '<' \
 			&& meta_char(str[i]) != 3)
 			i++;
-		if (str[i] && meta_char(str[i]) == 3)
+		if (i < size && str[i] && meta_char(str[i]) == 3)
 			i = skip_quotes(str, i);
-		if (str[i] && str[i + 1] && (str[i] == '>' && str[i + 1] == '<'))
+		if (i < size && str[i] && str[i + 1] && (str[i] == '>' 
+				&& str[i + 1] == '<'))
 			return (token_message(str[i + 1]));
-		if (str[i] && str[i + 1] && (str[i] == '<' && str[i + 1] == '|'))
+		if (i < size && str[i] && str[i + 1] && (str[i] == '<'
+				&& str[i + 1] == '|'))
 			return (token_message(str[i + 1]));
 		i++;
 	}
@@ -95,15 +97,17 @@ int	double_redir_syntax(char *str)
 	while (i < size)
 	{
 		while (i < size && meta_char(str[i]) != 3 && str[i] != '>' \
-			&& str[i] != '<')
+				&& str[i] != '<')
 			i++;
-		if (str[i] && meta_char(str[i]) == 3)
+		if (i < size && str[i] && meta_char(str[i]) == 3)
 			i = skip_quotes(str, i);
-		if (str[i] && i < size && (str[i] == '>' || str[i] == '<'))
+		if (i < size && str[i] && i < size && (str[i] == '>' 
+				|| str[i] == '<'))
 		{
 			redir = str[i];
-			if (str[i + 1] == redir && (str[i + 2] == '|' || (str[i + 2] == ' ' \
-				&& str[i + 3] == '|')))
+			if (i < size && str[i + 1] == redir && (str[i + 2] == '|' 
+					|| (str[i + 2] == ' ' \
+					&& str[i + 3] == '|')))
 				return (token_message('|'));
 		}
 		i++;
