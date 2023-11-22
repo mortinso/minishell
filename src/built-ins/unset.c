@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:54:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 14:44:19 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/25 15:33:35 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	unset_list(t_list **lst, char *str)
+void	unset_env(t_list **env, char *str)
 {
 	int		i;
 	t_list	*tmp;
 
 	i = 0;
-	tmp = *lst;
-	while (i < ft_lstsize(*lst))
+	tmp = *env;
+	while (i < ft_lstsize(*env))
 	{
 		if (strcmp_nochr(str, (char *)tmp->data, '=') == 0
 			|| ft_strcmp((char *)tmp->data, str) == 0)
 		{
-			list_remove(lst, i);
+			list_remove(env, i);
 			return ;
 		}
 		tmp = tmp->next;
@@ -32,8 +32,28 @@ void	unset_list(t_list **lst, char *str)
 	}
 }
 
-//ms->exit > 0 if a variable couldnt be unset (idk how?????)
-void	unset(t_minishell *ms, char **arr)
+void	unset_exp(t_list **exp, char *str)
+{
+	int		i;
+	t_list	*tmp;
+
+	i = 0;
+	tmp = *exp;
+	while (i < ft_lstsize(*exp))
+	{
+		if (strcmp_nochr(str, (char *)tmp->data, '=') == 0
+			|| ft_strcmp((char *)tmp->data, str) == 0)
+		{
+			list_remove(exp, i);
+			return ;
+		}
+		tmp = tmp->next;
+		i++;
+	}
+}
+
+//g_exit > 0 if a variable couldnt be unset (idk how?????)
+void	unset(t_list **env, t_list **exp, char **arr)
 {
 	int		i;
 	int		size;
@@ -45,12 +65,12 @@ void	unset(t_minishell *ms, char **arr)
 	while (i < size)
 	{
 		buf = ft_strdup(arr[i]);
-		unset_list(ms->env, buf);
+		unset_env(env, buf);
 		exp_buf = export_str(buf);
-		unset_list(ms->exp, exp_buf);
+		unset_exp(exp, exp_buf);
 		free(exp_buf);
 		free(buf);
 		i++;
 	}
-	ms->exit = 0;
+	g_exit = 0;
 }

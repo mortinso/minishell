@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replacer_split2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:15:27 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/22 14:55:41 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:33:06 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //Takes str without quotes, removes anything else that needs removing and calls
 //	var_iter to compare str with env variables.
-char	*replace_str(t_minishell *ms, char *str)
+char	*replace_str(char *str, t_list **env)
 {
 	char	*buf1;
 	char	*buf2;
@@ -24,16 +24,16 @@ char	*replace_str(t_minishell *ms, char *str)
 	if (!buf1)
 		return (buf1);
 	if (ft_strchr(buf1, '$'))
-		buf2 = replacer(ms, buf1, 0);
+		buf2 = replacer(buf1, env, 0);
 	else
-		buf2 = var_iter(ms->env, buf1);
+		buf2 = var_iter(env, buf1);
 	free(buf1);
 	if (!buf2)
 		return (NULL);
 	return (buf2);
 }
 
-char	*replace_single(t_minishell *ms, char *str, char *buf, int flag)
+char	*replace_single(char *str, char *buf, t_list **env, int flag)
 {
 	char	*res;
 	char	*buf1;
@@ -44,7 +44,7 @@ char	*replace_single(t_minishell *ms, char *str, char *buf, int flag)
 	else
 		buf1 = ft_strdup(str);
 	if (flag == 1)
-		res = replace_cond(ms, buf1, buf, 2);
+		res = replace_cond(buf1, buf, env, 2);
 	else
 		res = ft_strjoin(buf, buf1);
 	free(buf1);

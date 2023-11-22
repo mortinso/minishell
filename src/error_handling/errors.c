@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:57:08 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/22 14:58:30 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:16:01 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	syntax_error(t_minishell *ms)
 	{
 		free(ms->prompt);
 		free(ms->str);
-		ms->exit = 2;
+		g_exit = 2;
 		return (1);
 	}
 	return (0);
@@ -30,7 +30,7 @@ int	syntax_error(t_minishell *ms)
 void	malloc_error(t_minishell *ms)
 {
 	ft_putstr_fd("Minishell: error: malloc failed\n", STDERR_FILENO);
-	ms->exit = 12;
+	g_exit = 12;
 	free_ms(ms);
 }
 
@@ -40,7 +40,7 @@ int	open_error(t_minishell *ms, char *filename, int child)
 	perror(filename);
 	if (child)
 	{
-		ms->exit = 1;
+		g_exit = 1;
 		free_ms(ms);
 	}
 	else
@@ -51,13 +51,13 @@ int	open_error(t_minishell *ms, char *filename, int child)
 void	pipe_error(t_minishell *ms)
 {
 	ft_putstr_fd("Minishell: error: pipe failed\n", STDERR_FILENO);
-	ms->exit = 1;
+	g_exit = 1;
 	free_ms(ms);
 }
 
 void	fork_error(t_minishell *ms)
 {
 	ft_putstr_fd("Minishell: error: fork failed\n", STDERR_FILENO);
-	ms->exit = 1;
+	g_exit = 1;
 	free_ms(ms);
 }

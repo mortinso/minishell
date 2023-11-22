@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   content.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:59:23 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/22 14:57:24 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:31:16 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ char	**cmd_with_flags(t_minishell *ms, char **arr, int pos)
 	buf = malloc(sizeof(char *) * (args + 1));
 	if (!buf)
 		malloc_error(ms);
-	while (arr[pos] && !arr[pos][0])
-		pos++;
 	while (i < args)
 	{
 		if (arr[pos] && (ft_strcmp(arr[pos], ">") == 0 \
@@ -58,8 +56,10 @@ char	**cmd_with_flags(t_minishell *ms, char **arr, int pos)
 			pos += 2;
 		else if (ft_strcmp(arr[pos], "|") == 0)
 			break ;
-		else
+		else if (arr[pos] && arr[pos][0])
 			buf[i++] = arr[pos++];
+		else
+			pos++;
 	}
 	buf[i] = NULL;
 	return (buf);

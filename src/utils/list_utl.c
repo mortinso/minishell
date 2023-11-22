@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 15:17:58 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:18:16 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,23 @@ void	list_print(t_list **list)
 	}
 }
 
-void	list_sort(t_minishell *ms, t_list **exp)
+void	list_sort(t_list **list)
 {
 	t_list	*head;
 	t_list	*tmp;
 
-	head = *exp;
+	head = *list;
 	tmp = head;
 	while (tmp)
 	{
 		while (head->next)
 		{
 			if (ft_strcmp(head->data, head->next->data) > 0)
-				list_swap(ms, head);
+				list_swap(head);
 			head = head->next;
 		}
 		tmp = tmp->next;
-		head = *exp;
+		head = *list;
 	}
 }
 
@@ -80,7 +80,7 @@ int	list_check_dup(t_list **list, char *str)
 	return (0);
 }
 
-void	list_swap(t_minishell *ms, t_list *list)
+void	list_swap(t_list *list)
 {
 	char	*str;
 	t_list	*head;
@@ -91,7 +91,7 @@ void	list_swap(t_minishell *ms, t_list *list)
 	if (!head && !head->next)
 	{
 		write(2, "List Swap Error\n", 16);
-		ms->exit = 1;
+		g_exit = 1;
 		return ;
 	}
 	tmp = head;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/22 14:45:03 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:29:53 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,23 @@ void	exec(t_minishell *ms, char **cmd_arr)
 	char	*cmd_path;
 	char	**env;
 
-	if (!cmd_arr[0])
-		exit(ms->exit);
-	if (!cmd_arr || ft_strcmp(cmd_arr[0], "\'\'") == 0
-		|| ft_strcmp(cmd_arr[0], "\"\"") == 0)
-		write(STDERR_FILENO, "Minishell: '': command not found\n", 33);
+	if (!cmd_arr || !cmd_arr[0] || !cmd_arr[0][0])
+		ft_putstr_fd("Minishell: '': command not found\n", STDERR_FILENO);
 	if (is_built_in(cmd_arr[0]))
 		built_ins(ms, cmd_arr);
 	if (!cmd_arr || !cmd_arr[0] || !cmd_arr[0][0] || is_built_in(cmd_arr[0]))
 		free_ms(ms);
 	paths = get_paths(ms->env, cmd_arr[0]);
-	if (is_exec(ms, cmd_arr[0], paths) == 0)
+	if (is_exec(cmd_arr[0], paths) == 0)
 		free_ms(ms);
-	cmd_path = get_cmd_path(ms, paths, cmd_arr[0]);
+	cmd_path = get_cmd_path(paths, cmd_arr[0]);
 	free_array(paths);
 	if (!cmd_path)
 		free_ms(ms);
 	env = list_to_array(ms->env);
 	execve(cmd_path, cmd_arr, env);
 	free(cmd_path);
-	ms->exit = errno;
+	g_exit = errno;
 	free_ms(ms);
 }
 
@@ -94,7 +91,7 @@ char	**get_paths(t_list **env, char *cmd)
 	return (path_dir);
 }
 
-char	*get_cmd_path(t_minishell *ms, char **paths, char *cmd)
+char	*get_cmd_path(char **paths, char *cmd)
 {
 	char	*buf1;
 	char	*buf2;
@@ -111,14 +108,13 @@ char	*get_cmd_path(t_minishell *ms, char **paths, char *cmd)
 		free(buf2);
 		i++;
 	}
-	ms->exit = 127;
+	g_exit = 127;
 	if (strchr(cmd, '/'))
 		perror(cmd);
-	else if (ft_strcmp(cmd, "\'\'") != 0 && ft_strcmp(cmd, "\"\"") != 0)
+	else
 	{
-		write(STDERR_FILENO, "Minishell: ", 11);
 		ft_putstr_fd(cmd, STDERR_FILENO);
-		write(STDERR_FILENO, ": command not found\n", 20);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	}
 	return (NULL);
 }

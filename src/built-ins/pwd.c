@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 18:05:31 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/22 14:24:58 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:28:00 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 // Prints current working directory
-void	pwd(t_minishell *ms)
+void	pwd(void)
 {
 	char	cwd[PATH_MAX + 1];
 	int		i;
@@ -28,10 +28,10 @@ void	pwd(t_minishell *ms)
 	else
 	{
 		perror("Minishell: pwd");
-		ms->exit = errno;
+		g_exit = errno;
 		return ;
 	}
-	ms->exit = 0;
+	g_exit = 0;
 }
 // PATH_MAX is defined in <limits.h> and represents the maximum length of a
 // file path on the current system (including the null terminator).
