@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:29:16 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/01 16:43:22 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:58:16 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_exit(t_minishell *ms, char **args)
 	if (arr_size(args) > 2)
 	{
 		write(STDERR_FILENO, "Minishell: exit: too many arguments\n", 36);
-		g_exit = 1;
+		ms->exit = 1;
 	}
 	else if (arr_size(args) == 2 && args[1] && args[1][0])
 	{
@@ -104,12 +104,12 @@ void	ft_exit(t_minishell *ms, char **args)
 			write(STDERR_FILENO, "Minishell: exit: ", 17);
 			ft_putstr_fd(args[1], STDERR_FILENO);
 			write(STDERR_FILENO, ": numeric argument required\n", 28);
-			g_exit = 2;
+			ms->exit = 2;
 		}
 		else if (0 <= ft_atoi(args[1]) && exit_atoull(args[1]) <= 255)
-			g_exit = (int)exit_atoull(args[1]);
+			ms->exit = (int)exit_atoull(args[1]);
 		else
-			g_exit = other_exit_status(args[1]);
+			ms->exit = other_exit_status(args[1]);
 	}
 	free_ms(ms);
 }

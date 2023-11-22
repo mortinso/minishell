@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:08:39 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/01 16:43:05 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:55:35 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	cd_home(t_minishell *ms)
 		exit (1);
 	}
 	else
-		g_exit = 0;
+		ms->exit = 0;
 	if (home)
 		free(home);
 }
@@ -46,7 +46,7 @@ void	cd_env(t_minishell *ms, char *old_pwd)
 	var[1] = ft_strjoin("PWD=", pwd);
 	var[2] = ft_strjoin("OLDPWD=", old_pwd);
 	var[3] = NULL;
-	export(var, ms->exp, ms->env);
+	export(ms, var);
 	free_array(var);
 	while (old_pwd[i])
 		old_pwd[i++] = 0;
@@ -63,7 +63,7 @@ void	cd(t_minishell *ms, char **path)
 	{
 		write(2, "Minishell: cd: too many arguments\n", 34);
 		ft_bzero(old_pwd, ft_strlen(old_pwd));
-		g_exit = 1;
+		ms->exit = 1;
 		return ;
 	}
 	else if (!path || !path[1] || !path[1][0])
@@ -71,10 +71,10 @@ void	cd(t_minishell *ms, char **path)
 	else if (chdir(path[1]) != 0)
 	{
 		perror("Minishell: cd");
-		g_exit = 1;
+		ms->exit = 1;
 		return ;
 	}
 	else
-		g_exit = 0;
+		ms->exit = 0;
 	cd_env(ms, old_pwd);
 }

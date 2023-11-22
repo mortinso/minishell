@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:53:12 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/01 19:16:17 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:19:09 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	free_ms(t_minishell *ms)
 {
+	int	exit_status;
+
 	if (!ms)
-		exit(g_exit);
+		exit(ms->exit);
 	if (ms->str)
 		free(ms->str);
 	if (ms->prompt)
@@ -26,8 +28,9 @@ void	free_ms(t_minishell *ms)
 		free_cmd_list(ms->cmdlist);
 	free_list_malloc(ms->env);
 	free_list_malloc(ms->exp);
+	exit_status = ms->exit;
 	free(ms);
-	exit (g_exit);
+	exit(exit_status);
 }
 
 int	free_array(char **arr)

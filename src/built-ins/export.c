@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 20:39:06 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:14:23 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_list	**export_init(t_list **env)
+t_list	**export_init(t_minishell *ms)
 {
 	int		i;
 	char	*tmp;
@@ -23,8 +23,8 @@ t_list	**export_init(t_list **env)
 	i = 0;
 	exp = (t_list **)malloc(sizeof(exp));
 	*exp = NULL;
-	env_buf = *env;
-	while (i < ft_lstsize(*env))
+	env_buf = *ms->env;
+	while (i < ft_lstsize(*ms->env))
 	{
 		tmp = export_str(env_buf->data);
 		node = ft_lstnew(tmp);
@@ -32,22 +32,22 @@ t_list	**export_init(t_list **env)
 		env_buf = env_buf->next;
 		i++;
 	}
-	list_sort(exp);
+	list_sort(ms, exp);
 	return (exp);
 }
 
 //Checks if export arguments are valid
-int	export_error(char *str)
+int	export_error(t_minishell *ms, char *str)
 {
 	int	i;
 
 	i = 0;
 	if (ft_isdigit(str[0]) || str[0] == '=')
-		return (export_error_msg(str));
+		return (export_error_msg(ms, str));
 	while (i < (int)ft_strlen(str) && str[i] != '=')
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return (export_error_msg(str));
+			return (export_error_msg(ms, str));
 		i++;
 	}
 	return (0);
@@ -106,7 +106,7 @@ int	export_override(char *str, t_list **export)
 	return (1);
 }
 
-void	export(char **arr, t_list **export, t_list **env)
+void	export(t_minishell *ms, char **arr)
 {
 	int		i;
 	t_list	*node;
@@ -114,19 +114,19 @@ void	export(char **arr, t_list **export, t_list **env)
 	i = 1;
 	while (i < arr_size(arr))
 	{
-		if (export_error(arr[i]))
+		if (export_error(ms, arr[i]))
 		{
 			i++;
 			continue ;
 		}
-		env_override(arr[i], env);
-		if (export_override(arr[i], export) == 1)
+		env_override(arr[i], ms->env);
+		if (export_override(arr[i], ms->exp) == 1)
 		{
 			i++;
 			continue ;
 		}
 		node = ft_lstnew(export_str(arr[i]));
-		ft_lstadd_back(export, node);
+		ft_lstadd_back(ms->exp, node);
 		i++;
 	}
 }
