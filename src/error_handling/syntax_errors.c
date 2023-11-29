@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:44:37 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 19:03:06 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:09:28 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,10 @@ int	skip_quotes(char *str, int i);
 
 int	token_message(char token)
 {
-	int	fd;
-
-	fd = dup(STDOUT_FILENO);
-	dup2(STDERR_FILENO, STDOUT_FILENO);
-	printf("MiniShell: syntax error near unexpected token '%c'\n", token);
-	dup2(fd, STDOUT_FILENO);
-	close(fd);
+	write(2, "MiniShell: syntax error near unexpected token", 45);
+	write(2, " `", 2);
+	write(2, &token, 1);
+	write(2, "\'\n", 2);
 	return (1);
 }
 
@@ -74,10 +71,10 @@ int	redir_syntax(char *str)
 			i++;
 		if (i < size && str[i] && meta_char(str[i]) == 3)
 			i = skip_quotes(str, i);
-		if (i < size && str[i] && str[i + 1] && (str[i] == '>' 
+		if (i < size && str[i] && str[i + 1] && (str[i] == '>' \
 				&& str[i + 1] == '<'))
 			return (token_message(str[i + 1]));
-		if (i < size && str[i] && str[i + 1] && (str[i] == '<'
+		if (i < size && str[i] && str[i + 1] && (str[i] == '<' \
 				&& str[i + 1] == '|'))
 			return (token_message(str[i + 1]));
 		i++;
@@ -101,11 +98,11 @@ int	double_redir_syntax(char *str)
 			i++;
 		if (i < size && str[i] && meta_char(str[i]) == 3)
 			i = skip_quotes(str, i);
-		if (i < size && str[i] && i < size && (str[i] == '>' 
+		if (i < size && str[i] && i < size && (str[i] == '>'
 				|| str[i] == '<'))
 		{
 			redir = str[i];
-			if (i < size && str[i + 1] == redir && (str[i + 2] == '|' 
+			if (i < size && str[i + 1] == redir && (str[i + 2] == '|'
 					|| (str[i + 2] == ' ' \
 					&& str[i + 3] == '|')))
 				return (token_message('|'));

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:25:15 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 14:25:24 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/27 12:55:25 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	empty_var(char **arr, t_list **env)
 	char	*buf1;
 	char	*buf2;
 
-	if (arr_size(arr) == 1 && strchr_malloc(arr[0], '$') 
+	if (arr_size(arr) == 1 && arr[0][0] && arr[0][0] == '$' \
 		&& ft_strcmp(arr[0], "$") != 0 && ft_strcmp(arr[0], "$?") != 0)
 	{
 		buf1 = str_front_trim(arr[0], "$");

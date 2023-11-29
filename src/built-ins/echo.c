@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 19:24:47 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:48:40 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	ft_echo(t_minishell *ms, char **cmd_args)
 	n_flag = 0;
 	ms->exit = 0;
 	cmds = arr_size(cmd_args);
-	if (cmd_args[1] && echo_flag(cmd_args[1]) == 0)
+	while (cmd_args[j] && ft_strcmp(cmd_args[j], "-n") == 0)
 	{
 		n_flag = 1;
 		j++;

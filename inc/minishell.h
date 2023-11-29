@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 14:51:18 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:42:40 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ void					unset(t_minishell *ms, char **arr);
 int						syntax_error(t_minishell *ms);
 void					malloc_error(t_minishell *ms);
 int						open_error(t_minishell *ms, char *filename, int child);
-void					pipe_error(t_minishell *ms);
-void					fork_error(t_minishell *ms);
+void					pipe_error(t_minishell *ms, int *pipe_fd);
+void					fork_error(t_minishell *ms, int *pipe_fd);
 
 //errors2.c
 int						export_error_msg(t_minishell *ms, char *error);
@@ -204,7 +204,7 @@ int						cmd_args(char **arr, int pos);
 int						cmd_count(char **arr);
 
 // content.c
-void					init_heredoc(t_minishell *ms, char **main_arr);
+int						init_heredoc(t_minishell *ms, char **main_arr);
 char					**cmd_with_flags(t_minishell *ms, char **arr, int pos);
 
 // init.c
@@ -244,6 +244,10 @@ void					free_ms(t_minishell *ms);
 int						free_array(char **arr);
 void					free_cmd_list(t_cmdlist *cmdlist);
 void					free_list_malloc(t_list **exp);
+
+// frees2.c
+void					free_hdoc(t_minishell *ms);
+void					close_std_fds(void);
 
 // prompt.c
 char					*set_prompt(t_minishell *ms);

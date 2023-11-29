@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:34:46 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/27 11:40:33 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:12:18 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,11 @@ char	**var_split(char *str)
 	while (i < size)
 	{
 		word_len = var_split_word_size(str, pos);
-		buff[i++] = var_split_temp(str, word_len, pos);
+		buff[i] = var_split_temp(str, word_len, pos);
 		if (!buff[i])
 			return (NULL);
 		pos += var_split_word_size(str, pos);
+		i++;
 	}
 	buff[i] = 0;
 	return (buff);

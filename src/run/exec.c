@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/22 14:45:03 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:32:15 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	exec(t_minishell *ms, char **cmd_arr)
 	char	**env;
 
 	if (!cmd_arr[0])
-		exit(ms->exit);
+		free_ms(ms);
 	if (!cmd_arr || ft_strcmp(cmd_arr[0], "\'\'") == 0
 		|| ft_strcmp(cmd_arr[0], "\"\"") == 0)
 		write(STDERR_FILENO, "Minishell: '': command not found\n", 33);
