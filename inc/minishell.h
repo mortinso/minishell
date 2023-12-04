@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/28 12:42:40 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/30 17:54:40 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@
 
 //libft
 # include "../libft/src/libft.h"
-
-//gnl
-# include "../gnl/gnl.h"
 
 //readline, rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/readline.h>
@@ -257,5 +254,8 @@ void					signal_init(void);
 void					signal_process_interrupt(int signum);
 void					signal_exit(t_minishell *ms);
 void					post_process_signal(void);
+
+// signals2.c
+void					heredoc_signal(int signum);
 
 #endif

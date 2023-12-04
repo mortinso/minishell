@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   content.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:59:23 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/28 12:36:03 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/30 17:12:07 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	init_heredoc(t_minishell *ms, char **main_arr)
 			if (g_sig == SIGINT)
 			{
 				g_sig = 0;
-				return (printf("\n"));
+				return (1);
 			}
 			index += 2;
 		}
