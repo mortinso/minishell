@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_built_ins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 16:55:30 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/22 14:43:29 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/05 18:38:21 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	exp_built_in(t_minishell *ms, char **cmd_args)
 	}
 }
 
-void	built_ins(t_minishell *ms, char **cmd_args)
+void	built_ins(t_minishell *ms, char **cmd_args, int parent)
 {
 	if (ft_strcmp(cmd_args[0], "echo") == 0)
 		ft_echo(ms, cmd_args);
@@ -45,7 +45,7 @@ void	built_ins(t_minishell *ms, char **cmd_args)
 	else if (ft_strcmp(cmd_args[0], "pwd") == 0)
 		pwd(ms);
 	else if (ft_strcmp(cmd_args[0], "exit") == 0)
-		ft_exit(ms, cmd_args);
+		ft_exit(ms, cmd_args, parent);
 	else if (ft_strcmp(cmd_args[0], "env") == 0)
 		list_print(ms->env);
 	else if (ft_strcmp(cmd_args[0], "unset") == 0)

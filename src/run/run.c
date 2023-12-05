@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/28 12:22:51 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/05 18:38:41 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	parent(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 		{
 			close(pipe_fd[0]);
 			close(pipe_fd[1]);
-			built_ins(ms, cmd->cmd_args);
+			built_ins(ms, cmd->cmd_args, 1);
 		}
 	}
 	if (cmds_run > 0)

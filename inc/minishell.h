@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/30 17:54:40 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/12/05 18:39:14 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_list					**env_init(char **envp);
 void					env_override(char *str, t_list **env);
 
 // exit.c
-void					ft_exit(t_minishell *ms, char **args);
+void					ft_exit(t_minishell *ms, char **args, int parent);
 
 // export.c
 t_list					**export_init(t_minishell *ms);
@@ -149,7 +149,7 @@ char					*get_cmd_path(t_minishell *ms, char **paths, char *cmd);
 
 // exec_built_ins.c
 int						is_built_in(char *str);
-void					built_ins(t_minishell *ms, char **cmd_args);
+void					built_ins(t_minishell *ms, char **cmd_args, int parent);
 
 // redirections.c
 void					reset_fds(t_minishell *ms);
