@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:08:39 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/22 14:43:57 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:26:00 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@ void	cd_env(t_minishell *ms, char *old_pwd)
 {
 	char	pwd[PATH_MAX + 1];
 	char	**var;
-	int		i;
 
-	i = 0;
 	var = malloc(sizeof(char *) * 4);
+	ft_bzero(pwd, PATH_MAX + 1);
 	getcwd(pwd, sizeof(pwd));
 	var[0] = ft_strdup("export");
 	var[1] = ft_strjoin("PWD=", pwd);
@@ -48,16 +47,15 @@ void	cd_env(t_minishell *ms, char *old_pwd)
 	var[3] = NULL;
 	export(ms, var);
 	free_array(var);
-	while (old_pwd[i])
-		old_pwd[i++] = 0;
-	while (pwd[i])
-		pwd[i++] = 0;
+	ft_bzero(old_pwd, ft_strlen(old_pwd));
+	ft_bzero(pwd, ft_strlen(pwd));
 }
 
 void	cd(t_minishell *ms, char **path)
 {
 	char	old_pwd[PATH_MAX + 1];
 
+	ft_bzero(old_pwd, PATH_MAX + 1);
 	getcwd(old_pwd, sizeof(old_pwd));
 	if (path && arr_size(path) > 2)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 18:05:31 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/22 14:24:58 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:25:54 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@
 void	pwd(t_minishell *ms)
 {
 	char	cwd[PATH_MAX + 1];
-	int		i;
 
-	i = 0;
+	ft_bzero(cwd, PATH_MAX + 1);
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
 		printf("%s\n", getcwd(cwd, sizeof(cwd)));
-		while (cwd[i])
-			cwd[i++] = 0;
+		ft_bzero(cwd, ft_strlen(cwd));
 	}
 	else
 	{
