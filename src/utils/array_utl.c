@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:01:18 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 17:14:00 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/06 13:35:20 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,6 @@ int	arr_size(char **arr)
 		i++;
 	}
 	return (count);
-}
-
-char	**arr_cpy(t_minishell *ms, char **arr, int pos, int size)
-{
-	int		i;
-	char	**buf;
-
-	i = 0;
-	buf = ft_calloc((size + 1), sizeof(char *));
-	if (!buf)
-		malloc_error(ms);
-	while (i < size)
-	{
-		buf[i] = ft_calloc((ft_strlen(arr[pos]) + 1), sizeof(char));
-		ft_strlcpy(buf[i], arr[pos], ft_strlen(arr[pos]) + 1);
-		i++;
-		pos++;
-	}
-	return (buf);
 }
 
 void	arr_print(char *str, char **arr)
@@ -82,4 +63,20 @@ char	**list_to_array(t_list **list)
 	}
 	buf[i] = 0;
 	return (buf);
+}
+
+char	**ft_arrdup(char **old)
+{
+	char	**new;
+	int		index;
+
+	index = 0;
+	new = malloc(sizeof(char *) * (arr_size(old) + 1));
+	while (old && old[index])
+	{
+		new[index] = ft_strdup(old[index]);
+		index++;
+	}
+	new[index] = NULL;
+	return (new);
 }

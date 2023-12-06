@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   str_utl2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/31 12:40:09 by mortins-          #+#    #+#             */
-/*   Updated: 2023/12/04 18:16:28 by mortins-         ###   ########.fr       */
+/*   Created: 2023/12/04 10:37:02 by mortins-          #+#    #+#             */
+/*   Updated: 2023/12/04 14:22:40 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/minishell.h"
 
-//	Returns the number of bytes in 's'
-
-size_t	ft_strlen(const char *s)
+char	*ft_strndup(char *str, int len)
 {
-	size_t	i;
+	char	*res;
 
-	i = 0;
-	if (!s || !s[i])
-		return (0);
-	while (s[i])
-		i++;
-	return (i);
+	res = malloc(sizeof(char) * len + 1);
+	if (!res)
+	{
+		printf("Minishell: Malloc error!\n");
+		return (NULL);
+	}
+	ft_strlcpy(res, str, len + 1);
+	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 16:48:00 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/20 18:34:40 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/04 10:49:06 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,6 @@ int	strcmp_chr(char *s1, char *s2, char c)
 	while (s1[i] && s2[i] && (s1[i] == s2[i]) && i < strlen_chr(s2, c))
 		i++;
 	return (s1[i] - s2[i]);
-}
-
-int	strchr_malloc(char *s, char c)
-{
-	int	i;
-
-	i = 0;
-	if (!s || !s[i])
-		return (0);
-	while (s[i] && s[i] != c)
-		i++;
-	if (s[i] && s[i] == c)
-		return (1);
-	return (0);
 }
 
 char	*str_front_trim(char *str, char *trim)

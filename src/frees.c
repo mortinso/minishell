@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:53:12 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/30 16:56:16 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:12:45 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	free_cmd_list(t_cmdlist *cmdlist)
 	{
 		tmp = head;
 		head = head->next;
-		free(tmp->cmd_args);
+		free_array(tmp->cmd_args);
 		free(tmp);
 	}
 }

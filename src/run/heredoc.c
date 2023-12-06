@@ -3,80 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/30 17:26:46 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:35:47 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	change_terminal(void)
+char	*heredoc_output(t_minishell *ms, char *limiter, char *line)
 {
-	struct termios	term;
+	char	*buf;
 
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_cc[VQUIT] = _POSIX_VDISABLE;
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
-}
-
-int	create_file(t_minishell *ms, char *filename)
-{
-	int	fd;
-
-	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	if (fd < 0)
-		open_error(ms, filename, 1);
-	free(filename);
-	return (fd);
+	buf = remove_quotes(limiter);
+	if (g_sig == SIGINT || !line || strcmp_nochr(buf, line, '\n') == 0)
+	{
+		free(buf);
+		return (NULL);
+	}
+	free(buf);
+	if (closed_quotes(limiter) == 1)
+		buf = replace_str(ms, line);
+	else
+		buf = ft_strdup(line);
+	return (buf);
 }
 
 void	heredoc_child(t_minishell *ms, char *filename, char *limiter)
 {
+	char	*output;
 	char	*line;
 	int		fd;
 
 	line = NULL;
-	signal(SIGINT, heredoc_signal);
-	change_terminal();
 	fd = create_file(ms, filename);
 	while (1)
 	{
+		change_terminal();
 		line = readline("> ");
 		if (g_sig == SIGINT)
 			ms->exit = 128 + SIGINT;
 		else if (!line)
 			heredoc_eof(limiter);
-		if (g_sig == SIGINT || !line || strcmp_nochr(limiter, line, '\n') == 0)
+		output = heredoc_output(ms, limiter, line);
+		if (!output)
 			break ;
-		ft_putendl_fd(line, fd);
 		free(line);
+		ft_putendl_fd(output, fd);
+		free(output);
 	}
 	if (line)
 		free(line);
 	close(fd);
 	free_hdoc(ms);
-}
-
-char	*create_filename(int here_num)
-{
-	int		i;
-	char	*buf;
-	char	*filename;
-
-	i = 0;
-	buf = NULL;
-	filename = ft_strdup("/tmp/tmpxxx");
-	while (i < here_num)
-	{
-		buf = ft_strdup(filename);
-		free(filename);
-		filename = ft_strjoin(buf, "x");
-		free(buf);
-		i++;
-	}
-	return (filename);
 }
 
 char	*heredoc(t_minishell *ms, char *limiter, int here_num)
@@ -91,7 +71,10 @@ char	*heredoc(t_minishell *ms, char *limiter, int here_num)
 	if (pid < 0)
 		fork_error(ms, NULL);
 	if (pid == 0)
+	{
+		signal(SIGINT, heredoc_signal);
 		heredoc_child(ms, filename, limiter);
+	}
 	else
 	{
 		wait(&status);
