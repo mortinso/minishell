@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/06 15:35:47 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/06 18:00:58 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*heredoc_output(t_minishell *ms, char *limiter, char *line)
 		return (NULL);
 	}
 	free(buf);
-	if (closed_quotes(limiter) == 1)
+	if (!ft_strchr(limiter, '\'') && !ft_strchr(limiter, '\"'))
 		buf = replace_str(ms, line);
 	else
 		buf = ft_strdup(line);

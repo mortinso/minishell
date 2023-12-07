@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/12/05 18:38:26 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:04:28 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	**special_path(const char *cmd)
 	char	buf[PATH_MAX + 1];
 
 	paths = malloc(sizeof(char *) * 2);
-	ft_bzero(buf, ft_strlen(buf));
+	ft_bzero(buf, PATH_MAX + 1);
 	if (ft_strncmp(cmd, "../", 3) == 0 || ft_strncmp(cmd, "./", 2) == 0)
 	{
 		if (getcwd(buf, sizeof(buf)) == NULL)

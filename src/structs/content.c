@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:59:23 by mortins-          #+#    #+#             */
-/*   Updated: 2023/12/06 13:38:22 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:54:01 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,23 @@ int	init_heredoc(t_minishell *ms, char **main_arr)
 	return (0);
 }
 
+int	split_expansion(t_minishell *ms, char **buf, char *str, int index)
+{
+	char	**buf2;
+	int		temp_i;
+
+	temp_i = 0;
+	buf2 = split_main(ms, str);
+	while (buf2[temp_i])
+	{
+		buf[index] = remove_quotes(buf2[temp_i]);
+		index++;
+		temp_i++;
+	}
+	free_array(buf2);
+	return (index);
+}
+
 //Takes main array and position of a command, and returns an array with the
 //command and it's flags
 char	**cmd_with_flags(t_minishell *ms, char **arr, int pos)
@@ -65,7 +82,7 @@ char	**cmd_with_flags(t_minishell *ms, char **arr, int pos)
 		else if (ft_strcmp(arr[pos], "|") == 0)
 			break ;
 		else
-			buf[i++] = remove_quotes(arr[pos++]);
+			i = split_expansion(ms, buf, arr[pos++], i);
 	}
 	buf[i] = NULL;
 	return (buf);

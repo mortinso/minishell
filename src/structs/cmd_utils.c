@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/06 11:52:38 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:38:44 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	cmd_args(char **arr, int pos)
 			break ;
 		else
 		{
-			counter++;
+			counter += word_counter(arr[i]);
 			i++;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:36:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/06 15:17:23 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/06 18:03:48 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,31 +89,4 @@ char	*add_quotes(char *str, char c)
 		buf[j++] = str[i++];
 	buf[j] = c;
 	return (buf);
-}
-
-// Returns 1 if there are open quotes
-// Returns 0 if there are closed quotes
-int	closed_quotes(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && meta_char(str[i]) != 3)
-		i++;
-	if (str[i] == '\'')
-	{
-		i++;
-		while (str[i] && str[i] != '\'')
-			i++;
-	}
-	else if (str[i] == '\"')
-	{
-		i++;
-		while (str[i] && str[i] != '\"')
-			i++;
-	}
-	i++;
-	if (i == (int)ft_strlen(str))
-		return (0);
-	return (1);
 }

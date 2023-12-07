@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 10:37:02 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/06 13:14:48 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:00:00 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*replace_var(t_minishell *ms, char *result, char quotes, int str_index)
 	if (buffer && ft_strcmp(buffer, "$") == 0)
 		var = ft_strdup(buffer);
 	else if (buffer)
-		var = var_iter(ms->env, buffer + 1);
+		var = var_iter(ms, buffer + 1);
 	free(buffer);
 	buffer = ft_strjoin(fix, var);
 	free(fix);
@@ -75,7 +75,7 @@ size_t	get_new_index(t_minishell *ms, char *result, char quotes, int str_index)
 	if (buffer && ft_strcmp(buffer, "$") == 0)
 		var = ft_strdup(buffer);
 	else if (buffer)
-		var = var_iter(ms->env, buffer + 1);
+		var = var_iter(ms, buffer + 1);
 	new_index = ft_strlen(var);
 	free(buffer);
 	free(var);

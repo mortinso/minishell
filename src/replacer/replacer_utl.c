@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:25:15 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/05 15:37:26 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:09:52 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,17 @@ char	*var_cmp(char *env, char *var)
 	return (NULL);
 }
 
-char	*var_iter(t_list **env, char *var)
+char	*var_iter(t_minishell *ms, char *var)
 {
 	char	*buf;
 	t_list	*tmp;
 
-	tmp = *env;
+	if (ft_strcmp(var, "?") == 0)
+	{
+		buf = ft_itoa(ms->exit);
+		return (buf);
+	}
+	tmp = *ms->env;
 	while (tmp)
 	{
 		buf = var_cmp((char *)tmp->data, var);
