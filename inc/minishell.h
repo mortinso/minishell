@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/06 18:03:57 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/08 11:49:58 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,8 +199,8 @@ int						var_init(t_minishell *ms);
 // array_utl.c
 int						arr_size(char **arr);
 void					arr_print(char *str, char **arr);
-char					**list_to_array(t_list **list);
-char					**ft_arrdup(char **old);
+char					**list_to_array(t_minishell *ms, t_list **list);
+char					**ft_arrdup(t_minishell *ms, char **old);
 
 // list_utl.c
 void					list_print(t_list **list);

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/12/06 17:04:28 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/07 12:47:08 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	exec(t_minishell *ms, char **cmd_arr)
 	free_array(paths);
 	if (!cmd_path)
 		free_ms(ms);
-	env = list_to_array(ms->env);
+	env = list_to_array(ms, ms->env);
 	execve(cmd_path, cmd_arr, env);
 	free(cmd_path);
 	ms->exit = errno;

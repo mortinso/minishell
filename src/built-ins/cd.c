@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:08:39 by mortins-          #+#    #+#             */
-/*   Updated: 2023/12/05 17:26:00 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/12/07 12:49:23 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	cd_env(t_minishell *ms, char *old_pwd)
 	char	**var;
 
 	var = malloc(sizeof(char *) * 4);
+	if (!var)
+		malloc_error(ms);
 	ft_bzero(pwd, PATH_MAX + 1);
 	getcwd(pwd, sizeof(pwd));
 	var[0] = ft_strdup("export");

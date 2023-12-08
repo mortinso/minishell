@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/06 18:03:47 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/08 11:50:06 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	var_init(t_minishell *ms)
 		return (1);
 	new_arr = replaced_arr(ms);
 	free_array(ms->main_arr);
-	ms->main_arr = ft_arrdup(new_arr);
+	ms->main_arr = ft_arrdup(ms, new_arr);
 	free_array(new_arr);
 	ms->cmd_count = cmd_count(ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:57:08 by mortins-          #+#    #+#             */
-/*   Updated: 2023/12/06 15:21:36 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/07 12:40:29 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	syntax_error(t_minishell *ms)
 void	malloc_error(t_minishell *ms)
 {
 	ft_putstr_fd("Minishell: error: malloc failed\n", STDERR_FILENO);
+	if (!ms)
+		exit(12);
 	ms->exit = 12;
 	free_ms(ms);
 }

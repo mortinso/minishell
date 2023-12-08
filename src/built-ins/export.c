@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/27 12:25:50 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/07 12:48:34 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_list	**export_init(t_minishell *ms)
 
 	i = 0;
 	exp = (t_list **)malloc(sizeof(exp));
+	if (!exp)
+		malloc_error(ms);
 	*exp = NULL;
 	env_buf = (*ms->env);
 	while (i < ft_lstsize((*ms->env)))

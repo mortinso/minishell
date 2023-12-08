@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/28 12:57:27 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/07 12:44:18 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	main(int ac, char **av, char **envp)
 	t_minishell	*ms;
 
 	ms = malloc(sizeof(t_minishell));
+	if (!ms)
+		malloc_error(ms);
 	ms->env = env_init(envp);
 	ms->exp = export_init(ms);
 	ms->exit = 0;
