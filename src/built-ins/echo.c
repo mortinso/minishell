@@ -44,9 +44,7 @@ void	echo_print(char **cmd_args, int pos)
 		pos++;
 		if (cmd_args && cmd_args[0]
 			&& pos < arr_size(cmd_args))
-		{
 			printf(" ");
-		}
 	}
 }
 
