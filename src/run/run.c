@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/12/05 18:38:41 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/12/08 15:17:57 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	child(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 
 	cmd = ms->cmdlist;
 	i = cmds_run;
+	signal(SIGPIPE, signal_process_interrupt);
 	while (i > 0)
 	{
 		cmd = cmd->next;

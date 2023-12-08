@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 16:08:59 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/27 17:25:27 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/12/08 15:17:01 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	signal_process_interrupt(int signum)
 		g_sig = SIGQUIT;
 	if (signum == SIGINT)
 		g_sig = SIGINT;
+	if (signum == SIGPIPE)
+		g_sig = SIGPIPE;
 }
 
 //	CTRL-D represents "No input".

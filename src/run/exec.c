@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/12/08 13:23:36 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/08 15:18:58 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	exec(t_minishell *ms, char **cmd_arr)
 		write(STDERR_FILENO, "Minishell: '': command not found\n", 33);
 	if (is_built_in(cmd_arr[0]))
 		built_ins(ms, cmd_arr, 0);
+	if (g_sig == SIGPIPE)
+		free_ms(ms);
 	if (!cmd_arr || !cmd_arr[0] || !cmd_arr[0][0] || is_built_in(cmd_arr[0]))
 		free_ms(ms);
 	paths = get_paths(ms->env, cmd_arr[0]);

@@ -46,9 +46,6 @@ $(OBJ_DIR)/%.o: %.c
 val: $(NAME)
 	@valgrind --track-fds=yes --leak-check=full --track-origins=yes --show-leak-kinds=all --suppressions=readline.supp ./minishell
 
-val_child: $(NAME)
-	@valgrind --trace-children=yes --track-fds=yes --leak-check=full --track-origins=yes --show-leak-kinds=all --suppressions=readline.supp ./minishell
-
 clean:
 		@$(RM) $(OBJS) $(OBJ_DIR)
 		@make clean --no-print-directory -C $(LFT_DIR)

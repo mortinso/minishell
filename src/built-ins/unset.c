@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:54:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 14:44:19 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:46:58 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 void	unset_list(t_list **lst, char *str)
 {
 	int		i;
+	int		size;
 	t_list	*tmp;
 
 	i = 0;
 	tmp = *lst;
-	while (i < ft_lstsize(*lst))
+	size = ft_lstsize(*lst);
+	while (i < size)
 	{
 		if (strcmp_nochr(str, (char *)tmp->data, '=') == 0
 			|| ft_strcmp((char *)tmp->data, str) == 0)

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 14:39:09 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/08 15:14:15 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	list_print(t_list **list)
 	tmp = *list;
 	while (tmp)
 	{
-		printf("%s\n", (char *)tmp->data);
+		ft_putendl_fd((char *)tmp->data, 1);
 		tmp = tmp->next;
 	}
 }
@@ -52,6 +52,13 @@ void	list_remove(t_list **list, int pos)
 
 	i = 0;
 	tmp = *list;
+	if (pos == 0)
+	{
+		(*list) = (*list)->next;
+		free(tmp->data);
+		free(tmp);
+		return ;
+	}
 	while (i < pos - 1)
 	{
 		tmp = tmp->next;
