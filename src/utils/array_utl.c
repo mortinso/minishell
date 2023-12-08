@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:01:18 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/07 12:47:15 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/08 13:32:31 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,13 @@
 int	arr_size(char **arr)
 {
 	int	i;
-	int	count;
 
 	i = 0;
-	count = 0;
 	if (!arr)
 		return (0);
 	while (arr[i])
-	{
-		if (arr[i][0])
-			count++;
 		i++;
-	}
-	return (count);
+	return (i);
 }
 
 void	arr_print(char *str, char **arr)
