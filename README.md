@@ -1,10 +1,6 @@
 <h1>
-	<p align="center">THIS PROJECT IS STILL IN PROGRESS</p>
-</h1>
-
-<h1>
 	<p align="center">minishell</p>
-	<img align="right" alt="Project in progress" src="https://img.shields.io/badge/-Project%20In%20Progress-red">
+	<img align="right" alt="Final Grade: 101/ 100%" src="https://img.shields.io/badge/-%20101%20%2F%20100-success">
 </h1>
 <p align="center">
 	<b><i>As beautiful as a shell</b></i>
